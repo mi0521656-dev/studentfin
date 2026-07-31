@@ -1,20 +1,22 @@
 {
-  "short_name": "Studentfin",
-  "name": "Kantong pelajar",
+  "short_name": "KantongPelajar",
+  "name": "KantongPelajar Cerdas - Manajemen Keuangan",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "./icon-192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
-      "src": "icon-512.png",
+      "src": "./icon-512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": "/",
-  "background_color": "#ffffff",
+  "start_url": "./index.html",
+  "background_color": "#0f172a",
   "theme_color": "#2563eb",
   "display": "standalone",
   "orientation": "portrait"
