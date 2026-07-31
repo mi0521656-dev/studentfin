@@ -1,67 +1,72 @@
-const CACHE_NAME = 'kantongpelajar-v2';
-
-// Daftar asset utama yang akan di-cache untuk keperluan offline
-const PRECACHE_ASSETS = [
+const CACHE_NAME = 'kantongpelajar-v2'; // Naikkan versi ke v2, v3, dst.
+const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
   './icon-192.png',
-  './icon-512.png'
+  './icon-512.png',
+  'https://cdn.tailwindcss.com',
+  'https://cdn.jsdelivr.net/npm/chart.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+  'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js',
+  'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2'
 ];
 
-// 1. Install Event: Simpan asset dasar & langsung aktifkan SW baru
+// Install Event
 self.addEventListener('install', (event) => {
-  self.skipWaiting(); // Memaksa Service Worker baru langsung mengambil alih tanpa menunggu tab ditutup
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(PRECACHE_ASSETS);
-    })
+      console.log('[SW] Caching static assets');
+      return cache.addAll(ASSETS_TO_CACHE);
+    }).then(() => self.skipWaiting())
   );
 });
 
-// 2. Activate Event: Hapus SEMUA cache versi lama secara otomatis
+// Activate Event
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cache) => {
           if (cache !== CACHE_NAME) {
-            console.log('[SW] Memhapus Cache Lama:', cache);
+            console.log('[SW] Clearing old cache');
             return caches.delete(cache);
           }
         })
       );
-    }).then(() => self.clients.claim()) // Langsung mengontrol seluruh halaman yang terbuka
+    }).then(() => self.clients.claim())
   );
 });
 
-// 3. Fetch Event: Tampilkan cache cepat, tapi ambil versi TERBARU dari internet di background
+// Fetch Event
 self.addEventListener('fetch', (event) => {
-  const request = event.request;
-
-  // Abaikan request non-GET dan request API external (seperti Supabase)
-  if (request.method !== 'GET' || request.url.includes('supabase.co')) {
+  // Abaikan request bertipe non-GET atau request ke API Supabase dari caching offline
+  if (event.request.method !== 'GET' || event.request.url.includes('supabase.co')) {
     return;
   }
 
   event.respondWith(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.match(request).then((cachedResponse) => {
-        // Ambil versi terbaru dari jaringan (network)
-        const fetchPromise = fetch(request)
-          .then((networkResponse) => {
-            // Jika berhasil dan respon valid, perbarui cache dengan file terbaru
-            if (networkResponse && networkResponse.status === 200) {
-              cache.put(request, networkResponse.clone());
-            }
-            return networkResponse;
-          })
-          .catch(() => {
-            // Jika offline dan network gagal, abaikan error agar tetap pakai cachedResponse
-          });
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        // Ambil pembaruan di background jika ada koneksi
+        fetch(event.request).then((networkResponse) => {
+          if (networkResponse.status === 200) {
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
+          }
+        }).catch(() => {/* Ignore network errors offline */});
 
-        // Kembalikan respon dari cache jika ada, jika tidak tunggu hasil dari network
-        return cachedResponse || fetchPromise;
+        return cachedResponse;
+      }
+
+      return fetch(event.request).then((networkResponse) => {
+        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+          return networkResponse;
+        }
+        const responseToCache = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, responseToCache);
+        });
+        return networkResponse;
       });
     })
   );
