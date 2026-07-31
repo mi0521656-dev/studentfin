@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kantongpelajar-v1';
+const CACHE_NAME = 'kantongpelajar-v2'; // Naikkan versi ke v2, v3, dst.
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
