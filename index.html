@@ -23,6 +23,13 @@ tailwind.config = {
   }
 }
 </script>
+  <script>
+  // Inisialisasi Supabase
+  const SUPABASE_URL = 'https://muwglngmplnfsukbkryi.supabase.co'; // <--- URL Supabase kamu
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im11d2dsbmdtcGxuZnN1a2JrcnlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUwNjMwMzUsImV4cCI6MjEwMDYzOTAzNX0.T7rfHBZyawQRto57-n3GybIEho-_7xtVOyr42ONtKd8'; // <--- TARO API KEY SUPABASE DI SINI
+
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  </script>
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#2563eb">
 <link rel="apple-touch-icon" href="./icon-192.png">
