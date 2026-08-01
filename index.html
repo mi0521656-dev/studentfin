@@ -198,21 +198,24 @@ body.theme-dark .text-rose-600 {
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col pb-12 transition-colors duration-300">
 
-<!-- Header Navigation dengan Gradasi Seimbang & Subtle -->
+<!-- Header Navigation dengan Gradasi Seimbang & Tema Sejajar di Pojok Kanan Atas -->
 <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white sticky top-0 z-30 backdrop-blur-md bg-opacity-95 shadow-md border-b border-indigo-500/20">
-  <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center flex-wrap gap-2">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center w-full">
     <div class="flex items-center space-x-3">
-      <div class="bg-indigo-500/20 p-2.5 rounded-2xl backdrop-blur-md border border-indigo-400/30 shadow-inner">
-        <i class="fa-solid font-bold fa-wallet text-xl text-amber-400"></i>
+      <div class="bg-indigo-500/20 p-2 rounded-2xl backdrop-blur-md border border-indigo-400/30 shadow-inner shrink-0">
+        <i class="fa-solid font-bold fa-wallet text-lg text-amber-400"></i>
       </div>
       <div>
-        <h1 class="font-extrabold text-lg leading-tight tracking-tight">KantongPelajar <span class="text-amber-300 text-xs px-2 py-0.5 bg-indigo-900/80 rounded-full font-bold ml-1 border border-indigo-400/30">Cerdas</span></h1>
-        <p class="text-xs text-indigo-200/80 font-medium">Manajemen Keuangan Sekolah & Target</p>
+        <h1 class="font-extrabold text-base leading-tight tracking-tight flex items-center">
+          KantongPelajar 
+          <span class="text-amber-300 text-[10px] px-1.5 py-0.5 bg-indigo-900/80 rounded-full font-bold ml-1.5 border border-indigo-400/30">Cerdas</span>
+        </h1>
+        <p class="text-[10px] text-indigo-200/80 font-medium hidden sm:block">Manajemen Keuangan Sekolah & Target</p>
       </div>
     </div>
 
-    <!-- Theme Selector Panel Dropdown -->
-    <div class="relative">
+    <!-- Theme Selector Panel Dropdown (Pojok Kanan Atas) -->
+    <div class="relative shrink-0">
       <button id="themeDropdownBtn" onclick="toggleThemeMenu()" class="bg-slate-800/80 hover:bg-slate-800 p-2 px-3 rounded-2xl border border-slate-700 text-xs backdrop-blur-sm flex items-center gap-2 transition-all">
         <span id="currentThemeIcon"><i class="fa-solid fa-sun text-amber-400"></i></span>
         <span id="currentThemeLabel" class="font-bold text-xs">Tema</span>
@@ -265,13 +268,11 @@ body.theme-dark .text-rose-600 {
         <h2 id="txtTotalSaldo" class="text-3xl font-extrabold text-slate-800 tracking-tight mt-1">Rp 0</h2>
       </div>
 
-      <!-- Batas Belanja Harian (Gaya Kompak, Rapi & Ringkas) -->
-      <div class="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-indigo-50/70 border border-indigo-100 text-slate-700 text-xs" id="txtLimitHarian">
+      <!-- Batas Belanja Harian (Satu Kontainer yang Dijamin Selalu Muncul) -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-indigo-50/70 border border-indigo-100 text-slate-700 text-xs font-medium">
         <i class="fa-solid fa-circle-info text-indigo-500 text-sm shrink-0"></i>
-        <div class="flex items-center gap-1.5 flex-wrap">
-          <span class="font-medium text-slate-500">Batas Belanja Harian:</span>
-          <strong class="font-bold text-indigo-950" id="valLimitHarian">Rp 0/hari</strong>
-        </div>
+        <span>Batas Belanja Harian:</span>
+        <strong class="font-bold text-indigo-900" id="valLimitHarian">Rp 0/hari</strong>
       </div>
     </div>
 
@@ -728,12 +729,10 @@ function setTheme(theme) {
   }
 
   localStorage.setItem('kp_theme', theme);
-  
-  // Re-render chart untuk warna border yang presisi
   if (transactions.length > 0) updateAnalysis();
 }
 
-// Helper Khusus Membesihkan Keterangan dari "Voice Note", Nominal, Angka & Kata Transaksi/Generik
+// Helper Bersihkan Keterangan
 function cleanNoteText(rawText) {
   if (!rawText) return '-';
   
@@ -829,7 +828,7 @@ function populateCategoryDropdown() {
   });
 }
 
-// Add Transaction to Supabase
+// Add Transaction
 async function addTransaction(e) {
   if(e) e.preventDefault();
   const date = document.getElementById('txDate').value;
@@ -906,6 +905,7 @@ function updateDashboard() {
   document.getElementById('txtWajibTotal').textContent = formatRupiah(wajibTotal);
   document.getElementById('txtNonWajibTotal').textContent = formatRupiah(nonWajibTotal);
 
+  // Perhitungan Batas Belanja Harian
   const today = new Date();
   const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
   const remainingDays = Math.max(1, daysInMonth - today.getDate() + 1);
@@ -915,10 +915,9 @@ function updateDashboard() {
     dailyLimit = Math.floor(totalSaldo / remainingDays);
   }
 
-  // Tampilkan Batas Harian dengan kondisi aman (Fallback)
   const valLimitEl = document.getElementById('valLimitHarian');
   if (valLimitEl) {
-    valLimitEl.textContent = dailyLimit > 0 ? `${formatRupiah(dailyLimit)}/hari` : 'Rp 0/hari';
+    valLimitEl.textContent = `${formatRupiah(dailyLimit)}/hari`;
   }
 
   updateAnalysis();
@@ -1056,7 +1055,6 @@ function resetHistoryFilter() {
   renderTransactions();
 }
 
-// Optimization: Mobile-First Card View for Transactions History
 function renderTransactions() {
   const container = document.getElementById('transactionListContainer');
   container.innerHTML = '';
@@ -1289,7 +1287,6 @@ function renderGoals() {
           <span class="text-indigo-400 font-bold">${formatRupiah(currentSaved)}</span>
           <span class="text-slate-400">/ ${formatRupiah(g.target)}</span>
         </div>
-        <!-- Modern Dynamic Gradient Progress Bar -->
         <div class="w-full bg-slate-700/40 rounded-full h-2.5 overflow-hidden p-0.5 border border-slate-600/30">
           <div class="bg-gradient-to-r from-cyan-500 to-emerald-400 h-1.5 rounded-full transition-all duration-500" style="width: ${pct}%"></div>
         </div>
