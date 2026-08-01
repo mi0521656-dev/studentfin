@@ -51,7 +51,7 @@ body {
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
 }
 
-/* Semi-Dark Custom Theme Styles */
+/* --- PERBAIKAN TEMA SEMI-DARK --- */
 body.theme-semidark {
   background-color: #0f172a;
   color: #f1f5f9;
@@ -62,30 +62,67 @@ body.theme-semidark .bg-white {
   border-color: #334155 !important;
 }
 body.theme-semidark .text-slate-800,
-body.theme-semidark .text-slate-700 {
+body.theme-semidark .text-slate-700,
+body.theme-semidark .text-slate-600 {
   color: #f1f5f9 !important;
 }
-body.theme-semidark .text-slate-600,
-body.theme-semidark .text-slate-500 {
-  color: #cbd5e1 !important;
+body.theme-semidark .text-slate-500,
+body.theme-semidark .text-slate-400 {
+  color: #94a3b8 !important;
 }
 body.theme-semidark .bg-slate-50,
-body.theme-semidark .bg-slate-100 {
+body.theme-semidark .bg-slate-50\/50,
+body.theme-semidark .bg-slate-50\/80,
+body.theme-semidark .bg-slate-100,
+body.theme-semidark .bg-slate-100\/80 {
   background-color: #334155 !important;
   color: #f8fafc !important;
+  border-color: #475569 !important;
 }
 body.theme-semidark .border-slate-100,
-body.theme-semidark .border-slate-200 {
+body.theme-semidark .border-slate-200,
+body.theme-semidark .border-slate-200\/80 {
   border-color: #475569 !important;
 }
 body.theme-semidark input,
 body.theme-semidark select {
-  background-color: #334155 !important;
+  background-color: #0f172a !important;
   color: #ffffff !important;
   border-color: #475569 !important;
 }
+/* Kotak Analisis AI & Ringkasan Berwarna di Semi-Dark */
+body.theme-semidark .bg-indigo-50\/70,
+body.theme-semidark .bg-indigo-50\/80 {
+  background-color: #312e81 !important;
+  border-color: #4338ca !important;
+}
+body.theme-semidark .text-indigo-900,
+body.theme-semidark .text-indigo-800,
+body.theme-semidark .text-indigo-700 {
+  color: #e0e7ff !important;
+}
+body.theme-semidark .bg-emerald-50\/80 {
+  background-color: #064e3b !important;
+  border-color: #047857 !important;
+}
+body.theme-semidark .text-emerald-700,
+body.theme-semidark .text-emerald-600 {
+  color: #a7f3d0 !important;
+}
+body.theme-semidark .bg-rose-50\/80 {
+  background-color: #881337 !important;
+  border-color: #be123c !important;
+}
+body.theme-semidark .text-rose-700,
+body.theme-semidark .text-rose-600 {
+  color: #fecdd3 !important;
+}
+body.theme-semidark thead {
+  background-color: #0f172a !important;
+  color: #cbd5e1 !important;
+}
 
-/* Full Dark Custom Theme Styles */
+/* --- PERBAIKAN TEMA FULL DARK --- */
 body.theme-dark {
   background-color: #090d16;
   color: #e2e8f0;
@@ -96,27 +133,64 @@ body.theme-dark .bg-white {
   border-color: #1f2937 !important;
 }
 body.theme-dark .text-slate-800,
-body.theme-dark .text-slate-700 {
+body.theme-dark .text-slate-700,
+body.theme-dark .text-slate-600 {
   color: #f9fafb !important;
 }
-body.theme-dark .text-slate-600,
-body.theme-dark .text-slate-500 {
+body.theme-dark .text-slate-500,
+body.theme-dark .text-slate-400 {
   color: #9ca3af !important;
 }
 body.theme-dark .bg-slate-50,
-body.theme-dark .bg-slate-100 {
+body.theme-dark .bg-slate-50\/50,
+body.theme-dark .bg-slate-50\/80,
+body.theme-dark .bg-slate-100,
+body.theme-dark .bg-slate-100\/80 {
   background-color: #1f2937 !important;
   color: #f3f4f6 !important;
+  border-color: #374151 !important;
 }
 body.theme-dark .border-slate-100,
-body.theme-dark .border-slate-200 {
+body.theme-dark .border-slate-200,
+body.theme-dark .border-slate-200\/80 {
   border-color: #374151 !important;
 }
 body.theme-dark input,
 body.theme-dark select {
-  background-color: #1f2937 !important;
+  background-color: #090d16 !important;
   color: #ffffff !important;
   border-color: #374151 !important;
+}
+/* Kotak Analisis AI & Ringkasan Berwarna di Full Dark */
+body.theme-dark .bg-indigo-50\/70,
+body.theme-dark .bg-indigo-50\/80 {
+  background-color: #1e1b4b !important;
+  border-color: #312e81 !important;
+}
+body.theme-dark .text-indigo-900,
+body.theme-dark .text-indigo-800,
+body.theme-dark .text-indigo-700 {
+  color: #e0e7ff !important;
+}
+body.theme-dark .bg-emerald-50\/80 {
+  background-color: #022c22 !important;
+  border-color: #065f46 !important;
+}
+body.theme-dark .text-emerald-700,
+body.theme-dark .text-emerald-600 {
+  color: #a7f3d0 !important;
+}
+body.theme-dark .bg-rose-50\/80 {
+  background-color: #4c0519 !important;
+  border-color: #9f1239 !important;
+}
+body.theme-dark .text-rose-700,
+body.theme-dark .text-rose-600 {
+  color: #fecdd3 !important;
+}
+body.theme-dark thead {
+  background-color: #090d16 !important;
+  color: #9ca3af !important;
 }
 </style>
 </head>
@@ -405,7 +479,7 @@ body.theme-dark select {
     </div>
   </div>
 
-  <!-- Section: Tabel Riwayat Transaksi Dengan Batas Tampilan 8 Transaksi -->
+  <!-- Section: Tabel Riwayat Transaksi -->
   <div class="bg-white p-6 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 border border-slate-100 space-y-5">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
       <h3 class="font-bold text-slate-800 flex items-center gap-2 text-sm">
@@ -428,7 +502,6 @@ body.theme-dark select {
       </button>
     </div>
 
-    <!-- Pembatas Tampilan Maksimal 8 Baris Transaksi (Gulir ke Bawah Untuk Selebihnya) -->
     <div class="overflow-x-auto max-h-[380px] overflow-y-auto">
       <table class="w-full text-left text-xs text-slate-600 relative">
         <thead class="bg-slate-100/80 text-slate-500 uppercase tracking-wider font-extrabold sticky top-0 z-10 backdrop-blur-md">
@@ -628,7 +701,7 @@ document.addEventListener('DOMContentLoaded', () => {
       navigator.serviceWorker.register('./sw.js')
         .then((reg) => {
           console.log('Service Worker terdaftar!', reg);
-          reg.update(); // Paksa update service worker jika ada perubahan
+          reg.update();
         })
         .catch((err) => console.error('Gagal daftar Service Worker:', err));
     });
@@ -669,6 +742,9 @@ function setTheme(theme) {
   }
 
   localStorage.setItem('kp_theme', theme);
+  
+  // Re-render chart untuk warna border yang presisi
+  if (transactions.length > 0) updateAnalysis();
 }
 
 // Helper Khusus Membesihkan Keterangan dari "Voice Note", Nominal, Angka & Kata Transaksi/Generik
@@ -676,24 +752,18 @@ function cleanNoteText(rawText) {
   if (!rawText) return '-';
   
   let cleaned = rawText.toLowerCase()
-    .replace(/voice\s*note\s*:?\s*/gi, '') // Hapus kata "Voice Note:"
-    .replace(/["']/g, '')                  // Hapus tanda kutip
-    .replace(/rp\.?\s*/gi, '')             // Hapus frasa "Rp"
-    .replace(/\d+([\.,]\d+)*/g, '')        // Hapus angka dan format desimal/titik
-    .replace(/\b(ribu|juta|rb|jt|rupiah)\b/gi, ''); // Hapus kata nominal
+    .replace(/voice\s*note\s*:?\s*/gi, '')
+    .replace(/["']/g, '')
+    .replace(/rp\.?\s*/gi, '')
+    .replace(/\d+([\.,]\d+)*/g, '')
+    .replace(/\b(ribu|juta|rb|jt|rupiah)\b/gi, '');
 
-  // 1. Daftar Kata Kerja / Stopwords Transaksi yang Dihapus
   const stopWords = ['beli', 'membeli', 'bayar', 'membayar', 'dapat', 'dapat uang', 'sebesar', 'pemasukan', 'pengeluaran', 'masuk'];
-  
-  // 2. Daftar Kata Kategori Generik yang Dihapus JIKA ADA Kata Barang Lain Spesifik
   const genericCategoryWords = ['makanan', 'minuman', 'makan', 'minum'];
 
   let words = cleaned.split(/\s+/).filter(w => w.trim().length > 0);
-  
-  // Filter kata kerja
   words = words.filter(w => !stopWords.includes(w));
 
-  // Cek apakah ada kata spesifik selain kata kategori generik
   const hasSpecificItems = words.some(w => !genericCategoryWords.includes(w));
   if (hasSpecificItems) {
     words = words.filter(w => !genericCategoryWords.includes(w));
@@ -850,7 +920,6 @@ function updateDashboard() {
   document.getElementById('txtWajibTotal').textContent = formatRupiah(wajibTotal);
   document.getElementById('txtNonWajibTotal').textContent = formatRupiah(nonWajibTotal);
 
-  // Perhitungan Batas Belanja Harian
   const today = new Date();
   const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
   const remainingDays = Math.max(1, daysInMonth - today.getDate() + 1);
@@ -930,11 +999,12 @@ function renderPieChart(canvasId, catData, totalAmount, legendContainerId) {
   const colors = labels.map((_, i) => chartColors[i % chartColors.length]);
 
   if (labels.length === 0) {
+    const isDark = document.body.classList.contains('theme-dark') || document.body.classList.contains('theme-semidark');
     const chart = new Chart(ctx, {
       type: 'doughnut',
       data: {
         labels: ['Tidak Ada Data'],
-        datasets: [{ data: [1], backgroundColor: ['#e2e8f0'] }]
+        datasets: [{ data: [1], backgroundColor: [isDark ? '#334155' : '#e2e8f0'] }]
       },
       options: { plugins: { legend: { display: false } }, responsive: true, maintainAspectRatio: false }
     });
@@ -952,8 +1022,7 @@ function renderPieChart(canvasId, catData, totalAmount, legendContainerId) {
       datasets: [{
         data: dataValues,
         backgroundColor: colors,
-        borderWidth: 2,
-        borderColor: '#ffffff'
+        borderWidth: 0
       }]
     },
     options: {
@@ -997,7 +1066,6 @@ function resetHistoryFilter() {
   renderTransactions();
 }
 
-// Render Transaksi dengan Pembersihan Teks Otomatis (Mendukung Data Lama)
 function renderTransactions() {
   const tbody = document.getElementById('transactionTableBody');
   tbody.innerHTML = '';
@@ -1431,27 +1499,22 @@ function toggleVoiceRecognition() {
   }
 }
 
-// FUNGSI UTAMA ENGINE SUARA & PEMROSES TEKS BERSAMA SUPABASE
 function processVoiceCommand(text) {
   if (!text) return;
   const lowerText = text.toLowerCase();
 
-  // 1. Tentukan Jenis Transaksi (Pemasukan vs Pengeluaran)
   let type = 'pengeluaran';
   if (lowerText.includes('pemasukan') || lowerText.includes('terima') || lowerText.includes('dapat') || lowerText.includes('gaji') || lowerText.includes('uang saku') || lowerText.includes('masuk') || lowerText.includes('bonus')) {
     type = 'pemasukan';
   }
 
-  // Set tipe di UI & perbarui dropdown kategori
   setType(type);
 
-  // 2. Parser Nominal Angka
   let amount = 0;
   const matchDigits = lowerText.match(/\d+/g);
 
   if (matchDigits) {
     let baseNum = parseInt(matchDigits.join(''), 10);
-    // Cek multiplier kata (ribu / juta / rb / jt)
     if (lowerText.includes('juta') || lowerText.includes('jt')) {
       amount = baseNum < 1000 ? baseNum * 1000000 : baseNum;
     } else if (lowerText.includes('ribu') || lowerText.includes('rb')) {
@@ -1460,7 +1523,6 @@ function processVoiceCommand(text) {
       amount = baseNum;
     }
   } else {
-    // Fallback kata tulisan
     if (lowerText.includes('juta')) amount = 1000000;
     else if (lowerText.includes('ratus ribu')) amount = 100000;
     else if (lowerText.includes('lima puluh ribu')) amount = 50000;
@@ -1476,21 +1538,17 @@ function processVoiceCommand(text) {
     return;
   }
 
-  // 3. Cari Kategori Paling Cocok Berdasarkan Aturan Ketat
   let matchedCategory = '';
 
   if (type === 'pemasukan') {
-    // ATURAN PEMASUKAN: Hanya "uang saku" yang otomatis masuk ke Uang Saku
     if (lowerText.includes('uang saku')) {
       const catExist = categories.find(c => c.name.toLowerCase() === 'uang saku' && c.type === 'pemasukan');
       matchedCategory = catExist ? catExist.name : 'Uang Saku';
     } else {
-      // Bonus, hadiah, gaji dll. masuk ke Gaji/Bonus atau Lain-lain
       const catExist = categories.find(c => (c.name.toLowerCase().includes('gaji') || c.name.toLowerCase().includes('bonus')) && c.type === 'pemasukan');
       matchedCategory = catExist ? catExist.name : 'Lain-lain';
     }
   } else {
-    // ATURAN PENGELUARAN
     const drinkKeywords = ['sprite', 'fanta', 'coca cola', 'es teh', 'kopi', 'susu', 'air', 'minuman', 'minum', 'jus'];
     const foodKeywords = ['gorengan', 'nasi', 'roti', 'snack', 'ubi', 'oki', 'makanan', 'makan', 'bakso', 'mie'];
 
@@ -1515,15 +1573,12 @@ function processVoiceCommand(text) {
     }
   }
 
-  // 4. Bersihkan Keterangan (Membuang 'beli', 'minuman', 'makanan', dll.)
   let noteText = cleanNoteText(lowerText);
 
-  // 5. Isikan ke Form HTML
   document.getElementById('txCategory').value = matchedCategory;
   document.getElementById('txAmount').value = amount;
   document.getElementById('txNote').value = noteText;
 
-  // 6. Langsung Simpan Otomatis ke Supabase
   addTransaction();
 }
 
@@ -1554,4 +1609,3 @@ function showToast(msg) {
 </script>
 </body>
 </html>
-
