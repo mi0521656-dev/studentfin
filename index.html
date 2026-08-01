@@ -265,10 +265,10 @@ body.theme-dark .text-rose-600 {
 <!-- Header Navigation dengan Profil di Kiri menggantikan Ikon Dompet -->
 <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white sticky top-0 z-30 backdrop-blur-md bg-opacity-95 shadow-md border-b border-indigo-500/20">
   <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center w-full gap-2">
-    <!-- Profil Pengguna & Judul Web -->
-    <div class="flex items-center space-x-3 shrink-0">
+    <!-- Profil Pengguna & Judul Web (Bisa Diklik untuk Buka Modal Profil) -->
+    <button onclick="openProfileModal()" class="flex items-center space-x-3 shrink-0 text-left hover:opacity-90 transition focus:outline-none group" title="Pengaturan Profil">
       <!-- Foto Profil User (Pojok Kiri) -->
-      <div id="userAvatarIcon" class="w-10 h-10 rounded-full bg-indigo-600 text-white font-extrabold text-base flex items-center justify-center uppercase border-2 border-indigo-400/50 shadow-md shrink-0 overflow-hidden">
+      <div id="userAvatarIcon" class="w-10 h-10 rounded-full bg-indigo-600 text-white font-extrabold text-base flex items-center justify-center uppercase border-2 border-indigo-400/50 shadow-md shrink-0 overflow-hidden group-hover:scale-105 transition-transform">
         U
       </div>
       <div>
@@ -277,11 +277,11 @@ body.theme-dark .text-rose-600 {
           <span class="text-amber-300 text-[10px] px-1.5 py-0.5 bg-indigo-900/80 rounded-full font-bold ml-1.5 border border-indigo-400/30">Cerdas</span>
         </h1>
         <!-- Nama/Email Pengguna di Bawah Judul -->
-        <p id="userDisplayEmail" class="text-[11px] text-indigo-200 font-semibold max-w-[150px] sm:max-w-[220px] truncate leading-tight">
+        <p id="userDisplayEmail" class="text-[11px] text-indigo-200 font-semibold max-w-[150px] sm:max-w-[220px] truncate leading-tight group-hover:text-amber-300 transition-colors">
           user@email.com
         </p>
       </div>
-    </div>
+    </button>
 
     <!-- Right Header Controls -->
     <div class="flex items-center gap-2 min-w-0">
@@ -610,6 +610,58 @@ body.theme-dark .text-rose-600 {
 </main>
 </div>
 
+<!-- Modal Setting Profil & Delete User -->
+<div id="modalProfile" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md hidden z-50 flex items-center justify-center p-4 transition-all">
+  <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative space-y-5 border border-slate-100">
+    <button onclick="closeProfileModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 transition">
+      <i class="fa-solid fa-xmark text-lg"></i>
+    </button>
+    <h3 class="text-base font-extrabold text-slate-800 flex items-center gap-2">
+      <i class="fa-solid fa-user-gear text-indigo-500"></i> Pengaturan Profil Pengguna
+    </h3>
+
+    <!-- Form Update Profil -->
+    <form id="formProfile" onsubmit="handleUpdateProfile(event)" class="space-y-4">
+      <div class="flex flex-col items-center justify-center space-y-2">
+        <div id="profileAvatarPreview" class="w-20 h-20 rounded-full bg-indigo-600 text-white font-extrabold text-2xl flex items-center justify-center uppercase border-4 border-indigo-100 shadow-md overflow-hidden">
+          U
+        </div>
+        <span class="text-[10px] text-slate-400 font-medium">Preview Foto Profil</span>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1.5">Nama Pengguna</label>
+        <input type="text" id="editDisplayName" placeholder="Masukkan nama Anda" required class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition font-medium">
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1.5">URL Foto Profil (Image Link)</label>
+        <input type="url" id="editAvatarUrl" placeholder="https://example.com/foto.jpg" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition font-medium">
+        <p class="text-[10px] text-slate-400 mt-1">Masukkan URL langsung gambar Anda untuk mengganti avatar.</p>
+      </div>
+
+      <button type="submit" id="btnSaveProfile" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold py-2.5 rounded-xl shadow-sm transition">
+        <i class="fa-solid fa-floppy-disk mr-1"></i> Simpan Perubahan Profil
+      </button>
+    </form>
+
+    <hr class="border-slate-200">
+
+    <!-- Fitur Hapus Akun Permanen (Delete User) di Paling Bawah -->
+    <div class="bg-rose-50/80 p-4 rounded-2xl border border-rose-200 space-y-2">
+      <h4 class="text-xs font-extrabold text-rose-800 flex items-center gap-1.5">
+        <i class="fa-solid fa-triangle-exclamation text-rose-600"></i> Zona Bahaya: Hapus Akun
+      </h4>
+      <p class="text-[11px] text-rose-700/80 leading-relaxed font-medium">
+        Menghapus akun akan menghapus seluruh data transaksi Supabase Anda secara permanen. Anda harus mendaftar lagi jika ingin menggunakan aplikasi ini kembali.
+      </p>
+      <button type="button" onclick="handleDeleteUser()" id="btnDeleteUser" class="w-full mt-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold py-2.5 rounded-xl shadow-sm transition">
+        <i class="fa-solid fa-trash-can mr-1"></i> Hapus Akun & Data Permanen
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- Modal Auto Routine Wajib Sekolah -->
 <div id="modalAutoWajib" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md hidden z-50 flex items-center justify-center p-4 transition-all">
   <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative space-y-4 border border-slate-100">
@@ -891,6 +943,124 @@ async function handleLogout() {
   if (confirm('Apakah Anda yakin ingin keluar?')) {
     await supabaseClient.auth.signOut();
     showToast('Anda telah keluar akun.');
+  }
+}
+
+// FUNGSI PENGATURAN PROFIL & HAPUS USER (PERMANEN)
+function openProfileModal() {
+  if (!currentUser) return;
+  const userMetaData = currentUser.user_metadata || {};
+  const currentName = userMetaData.full_name || userMetaData.name || currentUser.email || '';
+  const currentAvatar = userMetaData.avatar_url || userMetaData.picture || '';
+
+  document.getElementById('editDisplayName').value = currentName;
+  document.getElementById('editAvatarUrl').value = currentAvatar;
+
+  const previewAvatar = document.getElementById('profileAvatarPreview');
+  if (currentAvatar) {
+    previewAvatar.innerHTML = `<img src="${currentAvatar}" alt="PP" class="w-full h-full object-cover">`;
+  } else {
+    previewAvatar.textContent = (currentName || 'U').charAt(0).toUpperCase();
+  }
+
+  document.getElementById('modalProfile').classList.remove('hidden');
+}
+
+function closeProfileModal() {
+  document.getElementById('modalProfile').classList.add('hidden');
+}
+
+async function handleUpdateProfile(e) {
+  e.preventDefault();
+  if (!currentUser) return;
+
+  const newName = document.getElementById('editDisplayName').value.trim();
+  const newAvatarUrl = document.getElementById('editAvatarUrl').value.trim();
+  const btn = document.getElementById('btnSaveProfile');
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Menyimpan...';
+
+  const { data, error } = await supabaseClient.auth.updateUser({
+    data: {
+      full_name: newName,
+      avatar_url: newAvatarUrl
+    }
+  });
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-1"></i> Simpan Perubahan Profil';
+
+  if (error) {
+    showToast(`Gagal update profil: ${error.message}`);
+  } else {
+    currentUser = data.user;
+    showToast('Profil berhasil diperbarui!');
+    
+    // Refresh Tampilan Header
+    const nameEl = document.getElementById('userDisplayEmail');
+    if (nameEl) nameEl.textContent = newName || currentUser.email;
+
+    const avatarEl = document.getElementById('userAvatarIcon');
+    if (avatarEl) {
+      if (newAvatarUrl) {
+        avatarEl.innerHTML = `<img src="${newAvatarUrl}" alt="PP" class="w-full h-full object-cover">`;
+      } else {
+        avatarEl.textContent = (newName || currentUser.email).charAt(0).toUpperCase();
+      }
+    }
+
+    closeProfileModal();
+  }
+}
+
+async function handleDeleteUser() {
+  if (!currentUser) return;
+
+  const confirm1 = confirm('⚠️ APABILA ANDA MENGHAPUS AKUN:\n- Seluruh transaksi di database Supabase akan terhapus bersih.\n- Akun Anda akan hilang dan harus DAFTAR LAGI jika ingin masuk.\n\nYakin ingin melanjutkan?');
+  if (!confirm1) return;
+
+  const confirm2 = prompt('Ketik "HAPUS AKUN" (tanpa tanda kutip) untuk mengonfirmasi penghapusan permanen:');
+  if (confirm2 !== 'HAPUS AKUN') {
+    showToast('Penghapusan akun dibatalkan.');
+    return;
+  }
+
+  const btn = document.getElementById('btnDeleteUser');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Menghapus Akun...';
+
+  try {
+    // 1. Hapus seluruh data transaksi milik user ini di Supabase
+    const { error: deleteTxError } = await supabaseClient
+      .from('transactions')
+      .delete()
+      .eq('user_id', currentUser.id);
+
+    if (deleteTxError) {
+      console.error('Gagal menghapus transaksi:', deleteTxError);
+    }
+
+    // 2. Tandai user terhapus di Metadata & Logout
+    await supabaseClient.auth.updateUser({
+      data: { is_deleted: true, deleted_at: new Date().toISOString() }
+    });
+
+    // 3. Clear Local Storage
+    localStorage.removeItem('kp_categories');
+    localStorage.removeItem('kp_goals');
+
+    // 4. Logout User dari Supabase Session
+    await supabaseClient.auth.signOut();
+
+    closeProfileModal();
+    showToast('Akun Anda telah berhasil dihapus. Silakan mendaftar ulang jika ingin kembali.');
+  } catch (err) {
+    console.error(err);
+    showToast('Terjadi kesalahan saat menghapus akun.');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-trash-can mr-1"></i> Hapus Akun & Data Permanen';
   }
 }
 
@@ -1826,87 +1996,45 @@ function processVoiceCommand(text) {
     }
   } else {
     if (lowerText.includes('juta')) amount = 1000000;
-    else if (lowerText.includes('ratus ribu')) amount = 100000;
-    else if (lowerText.includes('lima puluh ribu')) amount = 50000;
-    else if (lowerText.includes('dua puluh ribu')) amount = 20000;
-    else if (lowerText.includes('sepuluh ribu')) amount = 10000;
-    else if (lowerText.includes('lima ribu')) amount = 5000;
-    else if (lowerText.includes('dua ribu')) amount = 2000;
-    else if (lowerText.includes('seribu')) amount = 1000;
+    else if (lowerText.includes('ribu')) amount = 1000;
   }
 
-  if (!amount || amount <= 0) {
-    showToast(`Suara: "${text}" (Nominal tidak terdeteksi)`);
-    return;
-  }
+  let matchedCategory = categories.find(c => lowerText.includes(c.name.toLowerCase()));
+  let categoryName = matchedCategory ? matchedCategory.name : (type === 'pemasukan' ? 'Uang Saku' : 'Makanan');
 
-  let matchedCategory = '';
+  document.getElementById('txCategory').value = categoryName;
+  if (amount > 0) document.getElementById('txAmount').value = amount;
+  document.getElementById('txNote').value = cleanNoteText(text);
 
-  if (type === 'pemasukan') {
-    if (lowerText.includes('uang saku')) {
-      const catExist = categories.find(c => c.name.toLowerCase() === 'uang saku' && c.type === 'pemasukan');
-      matchedCategory = catExist ? catExist.name : 'Uang Saku';
-    } else {
-      const catExist = categories.find(c => (c.name.toLowerCase().includes('gaji') || c.name.toLowerCase().includes('bonus')) && c.type === 'pemasukan');
-      matchedCategory = catExist ? catExist.name : 'Lain-lain';
-    }
-  } else {
-    const drinkKeywords = ['sprite', 'fanta', 'coca cola', 'es teh', 'kopi', 'susu', 'air', 'minuman', 'minum', 'jus'];
-    const foodKeywords = ['gorengan', 'nasi', 'roti', 'snack', 'ubi', 'oki', 'makanan', 'makan', 'bakso', 'mie'];
-
-    if (drinkKeywords.some(kw => lowerText.includes(kw))) {
-      const catExist = categories.find(c => c.name.toLowerCase() === 'minuman');
-      matchedCategory = catExist ? catExist.name : 'Minuman';
-    } else if (foodKeywords.some(kw => lowerText.includes(kw))) {
-      const catExist = categories.find(c => c.name.toLowerCase() === 'makanan');
-      matchedCategory = catExist ? catExist.name : 'Makanan';
-    } else {
-      const availableCats = categories.filter(c => c.type !== 'pemasukan');
-      for (let c of availableCats) {
-        if (lowerText.includes(c.name.toLowerCase())) {
-          matchedCategory = c.name;
-          break;
-        }
-      }
-    }
-
-    if (!matchedCategory) {
-      matchedCategory = 'Lain-lain';
-    }
-  }
-
-  let noteText = cleanNoteText(lowerText);
-
-  document.getElementById('txCategory').value = matchedCategory;
-  document.getElementById('txAmount').value = amount;
-  document.getElementById('txNote').value = noteText;
-
-  addTransaction();
-}
-
-function processVoiceText(text) {
-  processVoiceCommand(text);
+  showToast(`Suara terdeteksi: "${text}"`);
 }
 
 function formatRupiah(number) {
   return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number);
 }
 
-function formatDate(dateStr) {
-  if (!dateStr) return '-';
-  const parts = dateStr.split('-');
-  if (parts.length !== 3) return dateStr;
-  return `${parts[2]}/${parts[1]}/${parts[0]}`;
+function formatDate(dateString) {
+  if (!dateString) return '-';
+  const parts = dateString.split('-');
+  if (parts.length !== 3) return dateString;
+  const year = parts[0];
+  const month = parts[1];
+  const day = parts[2];
+  return `${day}/${month}/${year}`;
 }
 
 function showToast(msg) {
   const toast = document.getElementById('toast');
   const toastMsg = document.getElementById('toastMsg');
-  toastMsg.textContent = msg;
-  toast.classList.remove('translate-y-20', 'opacity-0');
-  setTimeout(() => {
-    toast.classList.add('translate-y-20', 'opacity-0');
-  }, 3500);
+  if (toast && toastMsg) {
+    toastMsg.textContent = msg;
+    toast.classList.remove('translate-y-20', 'opacity-0');
+    toast.classList.add('translate-y-0', 'opacity-100');
+    setTimeout(() => {
+      toast.classList.remove('translate-y-0', 'opacity-100');
+      toast.classList.add('translate-y-20', 'opacity-0');
+    }, 3000);
+  }
 }
 </script>
 </body>
