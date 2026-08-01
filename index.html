@@ -173,7 +173,7 @@ body.theme-dark select {
           <span class="font-bold text-xs tracking-wide">Catat Suara AI</span>
           <span id="voiceStatus" class="text-[10px] bg-indigo-950/60 px-2 py-0.5 rounded-full text-indigo-200 font-medium">Klik Mic</span>
         </div>
-        <p class="text-[11px] text-indigo-100/90 hidden sm:block mt-0.5">Contoh: <span class="italic font-mono bg-indigo-900/60 px-2 py-0.5 rounded-lg text-yellow-200 border border-indigo-400/20">"Makan siang 15 ribu"</span></p>
+        <p class="text-[11px] text-indigo-100/90 hidden sm:block mt-0.5">Contoh: <span class="italic font-mono bg-indigo-900/60 px-2 py-0.5 rounded-lg text-yellow-200 border border-indigo-400/20">"Beli gorengan 5000"</span></p>
       </div>
     </div>
     <div class="text-right text-[11px] text-indigo-200 bg-indigo-900/30 px-3 py-1.5 rounded-xl border border-indigo-400/20">
@@ -671,13 +671,14 @@ function setTheme(theme) {
   localStorage.setItem('kp_theme', theme);
 }
 
-// Helper Khusus Membesihkan Keterangan dari "Voice Note", Nominal, & Angka
+// Helper Khusus Membesihkan Keterangan dari Kata Kerja, "Voice Note", Nominal, & Angka
 function cleanNoteText(rawText) {
   if (!rawText) return '-';
   let cleaned = rawText
     .replace(/voice\s*note\s*:?\s*/gi, '') // Hapus kata "Voice Note:"
     .replace(/["']/g, '')                  // Hapus tanda kutip
     .replace(/rp\.?\s*/gi, '')             // Hapus frasa "Rp"
+    .replace(/\b(beli|membeli|bayar|membayar|dapat|mendapatkan|kasih|dikasih|terima|menerima|pemasukan|pengeluaran|sebesar|rp)\b/gi, '') // Hapus kata kerja transaksi
     .replace(/\d+([\.,]\d+)*/g, '')        // Hapus angka dan format desimal/titik
     .replace(/\b(ribu|juta|rb|jt|rupiah)\b/gi, '') // Hapus kata nominal
     .replace(/\s+/g, ' ')                  // Rapikan spasi berlebih
@@ -1459,10 +1460,11 @@ function processVoiceCommand(text) {
     return;
   }
 
-  // 3. Cari Kategori Paling Cocok
+  // 3. Cari Kategori Paling Cocok (Dengan Keyword Mapping Cerdas)
   let matchedCategory = '';
   const availableCats = categories.filter(c => type === 'pemasukan' ? c.type === 'pemasukan' : c.type !== 'pemasukan');
   
+  // A. Pencocokan langsung dengan nama kategori yang ada
   for (let c of availableCats) {
     if (lowerText.includes(c.name.toLowerCase())) {
       matchedCategory = c.name;
@@ -1470,11 +1472,27 @@ function processVoiceCommand(text) {
     }
   }
 
+  // B. Pencocokan cerdas berdasarkan kata kunci kuliner/makanan/minuman jika tidak cocok dengan nama eksplisit
+  if (!matchedCategory && type === 'pengeluaran') {
+    const foodKeywords = ['gorengan', 'nasi', 'makan', 'makanan', 'snack', 'roti', 'ubi', 'oki', 'mie', 'soto', 'bakso', 'ayam', 'kantin', 'jajanan', 'cemilan'];
+    const drinkKeywords = ['minum', 'minuman', 'es', 'teh', 'kopi', 'jus', 'susu', 'air'];
+
+    const hasFoodKeyword = foodKeywords.some(kw => lowerText.includes(kw));
+    const hasDrinkKeyword = drinkKeywords.some(kw => lowerText.includes(kw));
+
+    if (hasFoodKeyword && availableCats.some(c => c.name === 'Makanan')) {
+      matchedCategory = 'Makanan';
+    } else if (hasDrinkKeyword && availableCats.some(c => c.name === 'Minuman')) {
+      matchedCategory = 'Minuman';
+    }
+  }
+
+  // C. Fallback default
   if (!matchedCategory) {
     matchedCategory = type === 'pemasukan' ? 'Uang Saku' : 'Lain-lain';
   }
 
-  // 4. Bersihkan Keterangan
+  // 4. Bersihkan Keterangan (Membuang kata "beli", "5000", dll)
   let noteText = cleanNoteText(lowerText);
 
   // 5. Isikan ke Form HTML
@@ -1513,3 +1531,4 @@ function showToast(msg) {
 </script>
 </body>
 </html>
+
