@@ -51,10 +51,10 @@ body {
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
 }
 
-/* --- PERBAIKAN TEMA SEMI-DARK --- */
+/* --- PERBAIKAN & PENYESUAIAN WARNA HARMONIS: SEMI-DARK --- */
 body.theme-semidark {
   background-color: #0f172a;
-  color: #f1f5f9;
+  color: #f8fafc;
 }
 body.theme-semidark .bg-white {
   background-color: #1e293b !important;
@@ -75,21 +75,22 @@ body.theme-semidark .bg-slate-50\/50,
 body.theme-semidark .bg-slate-50\/80,
 body.theme-semidark .bg-slate-100,
 body.theme-semidark .bg-slate-100\/80 {
-  background-color: #334155 !important;
+  background-color: #0f172a !important;
   color: #f8fafc !important;
-  border-color: #475569 !important;
+  border-color: #334155 !important;
 }
 body.theme-semidark .border-slate-100,
 body.theme-semidark .border-slate-200,
 body.theme-semidark .border-slate-200\/80 {
-  border-color: #475569 !important;
+  border-color: #334155 !important;
 }
 body.theme-semidark input,
 body.theme-semidark select {
   background-color: #0f172a !important;
   color: #ffffff !important;
-  border-color: #475569 !important;
+  border-color: #334155 !important;
 }
+
 /* Kotak Analisis AI & Ringkasan Berwarna di Semi-Dark */
 body.theme-semidark .bg-indigo-50\/70,
 body.theme-semidark .bg-indigo-50\/80 {
@@ -102,28 +103,30 @@ body.theme-semidark .text-indigo-700 {
   color: #e0e7ff !important;
 }
 body.theme-semidark .bg-emerald-50\/80,
-body.theme-semidark .bg-emerald-50 {
-  background-color: #064e3b !important;
+body.theme-semidark .bg-emerald-50,
+body.theme-semidark .bg-emerald-50\/60 {
+  background-color: rgba(6, 78, 59, 0.4) !important;
   border-color: #047857 !important;
 }
 body.theme-semidark .text-emerald-700,
 body.theme-semidark .text-emerald-600 {
-  color: #a7f3d0 !important;
+  color: #34d399 !important;
 }
 body.theme-semidark .bg-rose-50\/80,
-body.theme-semidark .bg-rose-50 {
-  background-color: #881337 !important;
+body.theme-semidark .bg-rose-50,
+body.theme-semidark .bg-rose-50\/60 {
+  background-color: rgba(136, 19, 55, 0.4) !important;
   border-color: #be123c !important;
 }
 body.theme-semidark .text-rose-700,
 body.theme-semidark .text-rose-600 {
-  color: #fecdd3 !important;
+  color: #fb7185 !important;
 }
 
-/* --- PERBAIKAN TEMA FULL DARK --- */
+/* --- PERBAIKAN & PENYESUAIAN WARNA HARMONIS: FULL DARK --- */
 body.theme-dark {
-  background-color: #090d16;
-  color: #e2e8f0;
+  background-color: #0b0f19;
+  color: #f3f4f6;
 }
 body.theme-dark .bg-white {
   background-color: #111827 !important;
@@ -155,10 +158,11 @@ body.theme-dark .border-slate-200\/80 {
 }
 body.theme-dark input,
 body.theme-dark select {
-  background-color: #090d16 !important;
+  background-color: #0b0f19 !important;
   color: #ffffff !important;
   border-color: #374151 !important;
 }
+
 /* Kotak Analisis AI & Ringkasan Berwarna di Full Dark */
 body.theme-dark .bg-indigo-50\/70,
 body.theme-dark .bg-indigo-50\/80 {
@@ -171,43 +175,45 @@ body.theme-dark .text-indigo-700 {
   color: #e0e7ff !important;
 }
 body.theme-dark .bg-emerald-50\/80,
-body.theme-dark .bg-emerald-50 {
-  background-color: #022c22 !important;
+body.theme-dark .bg-emerald-50,
+body.theme-dark .bg-emerald-50\/60 {
+  background-color: rgba(2, 44, 34, 0.5) !important;
   border-color: #065f46 !important;
 }
 body.theme-dark .text-emerald-700,
 body.theme-dark .text-emerald-600 {
-  color: #a7f3d0 !important;
+  color: #34d399 !important;
 }
 body.theme-dark .bg-rose-50\/80,
-body.theme-dark .bg-rose-50 {
-  background-color: #4c0519 !important;
+body.theme-dark .bg-rose-50,
+body.theme-dark .bg-rose-50\/60 {
+  background-color: rgba(76, 5, 25, 0.5) !important;
   border-color: #9f1239 !important;
 }
 body.theme-dark .text-rose-700,
 body.theme-dark .text-rose-600 {
-  color: #fecdd3 !important;
+  color: #fb7185 !important;
 }
 </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col pb-12 transition-colors duration-300">
 
-<!-- Header Navigation -->
-<header class="bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 text-white sticky top-0 z-30 backdrop-blur-md bg-opacity-95 shadow-md border-b border-indigo-500/20">
+<!-- Header Navigation dengan Gradasi Seimbang & Subtle -->
+<header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white sticky top-0 z-30 backdrop-blur-md bg-opacity-95 shadow-md border-b border-indigo-500/20">
   <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center flex-wrap gap-2">
     <div class="flex items-center space-x-3">
-      <div class="bg-white/15 p-2.5 rounded-2xl backdrop-blur-md shadow-inner">
-        <i class="fa-solid font-bold fa-wallet text-xl text-yellow-300"></i>
+      <div class="bg-indigo-500/20 p-2.5 rounded-2xl backdrop-blur-md border border-indigo-400/30 shadow-inner">
+        <i class="fa-solid font-bold fa-wallet text-xl text-amber-400"></i>
       </div>
       <div>
-        <h1 class="font-extrabold text-lg leading-tight tracking-tight">KantongPelajar <span class="text-yellow-300 text-xs px-2 py-0.5 bg-indigo-900/60 rounded-full font-bold ml-1">Cerdas</span></h1>
-        <p class="text-xs text-indigo-200 font-medium">Manajemen Keuangan Sekolah & Target</p>
+        <h1 class="font-extrabold text-lg leading-tight tracking-tight">KantongPelajar <span class="text-amber-300 text-xs px-2 py-0.5 bg-indigo-900/80 rounded-full font-bold ml-1 border border-indigo-400/30">Cerdas</span></h1>
+        <p class="text-xs text-indigo-200/80 font-medium">Manajemen Keuangan Sekolah & Target</p>
       </div>
     </div>
 
     <!-- Theme Selector Panel Dropdown -->
     <div class="relative">
-      <button id="themeDropdownBtn" onclick="toggleThemeMenu()" class="bg-indigo-900/50 hover:bg-indigo-900/70 p-2 px-3 rounded-2xl border border-indigo-400/30 text-xs backdrop-blur-sm flex items-center gap-2 transition-all">
+      <button id="themeDropdownBtn" onclick="toggleThemeMenu()" class="bg-slate-800/80 hover:bg-slate-800 p-2 px-3 rounded-2xl border border-slate-700 text-xs backdrop-blur-sm flex items-center gap-2 transition-all">
         <span id="currentThemeIcon"><i class="fa-solid fa-sun text-amber-400"></i></span>
         <span id="currentThemeLabel" class="font-bold text-xs">Tema</span>
         <i class="fa-solid fa-chevron-down text-[10px] opacity-70"></i>
@@ -233,25 +239,25 @@ body.theme-dark .text-rose-600 {
 <main class="max-w-5xl mx-auto px-4 mt-6 flex-1 w-full space-y-6">
 
   <!-- Voice Note Bar -->
-  <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 rounded-3xl p-4 text-white shadow-md flex items-center justify-between gap-3 backdrop-blur-xl border border-white/10">
+  <div class="bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-900 rounded-3xl p-4 text-white shadow-md flex items-center justify-between gap-3 backdrop-blur-xl border border-indigo-500/30">
     <div class="flex items-center gap-3.5">
-      <button id="btnVoice" onclick="toggleVoiceRecognition()" class="bg-red-500 hover:bg-red-600 text-white p-3 rounded-2xl shadow-md transition-all duration-300 hover:-translate-y-0.5 active:scale-95 flex items-center justify-center w-11 h-11 shrink-0">
+      <button id="btnVoice" onclick="toggleVoiceRecognition()" class="bg-rose-500 hover:bg-rose-600 text-white p-3 rounded-2xl shadow-md transition-all duration-300 hover:-translate-y-0.5 active:scale-95 flex items-center justify-center w-11 h-11 shrink-0">
         <i id="micIcon" class="fa-solid fa-microphone text-lg"></i>
       </button>
       <div>
         <div class="flex items-center gap-2">
           <span class="font-bold text-xs tracking-wide">Catat Suara AI</span>
-          <span id="voiceStatus" class="text-[10px] bg-indigo-950/60 px-2.5 py-0.5 rounded-full text-indigo-200 font-medium">Klik Mic</span>
+          <span id="voiceStatus" class="text-[10px] bg-indigo-950/80 border border-indigo-500/30 px-2.5 py-0.5 rounded-full text-indigo-200 font-medium">Klik Mic</span>
         </div>
-        <p class="text-[11px] text-indigo-100/90 hidden sm:block mt-0.5">Contoh: <span class="italic font-mono bg-indigo-900/60 px-2 py-0.5 rounded-lg text-yellow-200 border border-indigo-400/20">"Makan siang 15 ribu"</span></p>
+        <p class="text-[11px] text-indigo-200/80 hidden sm:block mt-0.5">Contoh: <span class="italic font-mono bg-slate-950/60 px-2 py-0.5 rounded-lg text-amber-300 border border-indigo-500/20">"Makan siang 15 ribu"</span></p>
       </div>
     </div>
-    <div class="text-right text-[11px] text-indigo-200 bg-indigo-900/30 px-3 py-1.5 rounded-xl border border-indigo-400/20">
-      <i class="fa-solid fa-bolt text-yellow-300 mr-1"></i> <span class="font-semibold">Input Cepat</span>
+    <div class="text-right text-[11px] text-indigo-200 bg-indigo-950/50 px-3 py-1.5 rounded-xl border border-indigo-500/30">
+      <i class="fa-solid fa-bolt text-amber-400 mr-1"></i> <span class="font-semibold">Input Cepat</span>
     </div>
   </div>
 
-  <!-- Ringkasan Saldo & Dashboard (Optimized Layout - Ringkas & Padat) -->
+  <!-- Ringkasan Saldo & Dashboard -->
   <div class="bg-white p-6 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 border border-slate-100 space-y-5">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
       <div>
@@ -259,7 +265,7 @@ body.theme-dark .text-rose-600 {
         <h2 id="txtTotalSaldo" class="text-3xl font-extrabold text-slate-800 tracking-tight mt-1">Rp 0</h2>
       </div>
       <div class="text-xs text-slate-600 bg-indigo-50/80 p-3 rounded-2xl border border-indigo-100 flex items-center gap-2.5" id="txtLimitHarian">
-        <i class="fa-solid fa-circle-info text-indigo-600 text-sm shrink-0"></i>
+        <i class="fa-solid fa-circle-info text-indigo-500 text-sm shrink-0"></i>
         <div>
           <span class="block text-[10px] font-semibold text-indigo-900 uppercase tracking-wider">Batas Belanja Harian</span>
           <strong class="font-extrabold text-indigo-950 text-xs" id="valLimitHarian">Rp 0/hari</strong>
@@ -273,10 +279,10 @@ body.theme-dark .text-rose-600 {
       <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100/80 flex items-center justify-between">
         <div class="space-y-0.5">
           <span class="text-[11px] font-bold text-emerald-800 uppercase tracking-wider block">Total Pemasukan</span>
-          <h3 id="txtTotalPemasukan" class="text-xl font-extrabold text-emerald-600 tracking-tight">Rp 0</h3>
+          <h3 id="txtTotalPemasukan" class="text-xl font-extrabold text-emerald-500 tracking-tight">Rp 0</h3>
           <p class="text-[10px] text-emerald-700/80 font-medium">Akumulasi Uang Masuk</p>
         </div>
-        <div class="w-10 h-10 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shadow-sm shrink-0">
+        <div class="w-10 h-10 rounded-2xl bg-emerald-500 text-white flex items-center justify-center shadow-sm shrink-0">
           <i class="fa-solid fa-arrow-down text-sm"></i>
         </div>
       </div>
@@ -285,14 +291,14 @@ body.theme-dark .text-rose-600 {
       <div class="p-4 rounded-2xl bg-rose-50/60 border border-rose-100/80 flex items-center justify-between">
         <div class="space-y-1">
           <span class="text-[11px] font-bold text-rose-800 uppercase tracking-wider block">Total Pengeluaran</span>
-          <h3 id="txtTotalPengeluaran" class="text-xl font-extrabold text-rose-600 tracking-tight">Rp 0</h3>
+          <h3 id="txtTotalPengeluaran" class="text-xl font-extrabold text-rose-500 tracking-tight">Rp 0</h3>
           <div class="flex items-center gap-2 text-[10px] font-semibold text-rose-800">
             <span>Wajib: <b id="txtWajibTotal" class="font-extrabold">Rp 0</b></span>
             <span>•</span>
             <span>Non-Wajib: <b id="txtNonWajibTotal" class="font-extrabold">Rp 0</b></span>
           </div>
         </div>
-        <div class="w-10 h-10 rounded-2xl bg-rose-600 text-white flex items-center justify-center shadow-sm shrink-0">
+        <div class="w-10 h-10 rounded-2xl bg-rose-500 text-white flex items-center justify-center shadow-sm shrink-0">
           <i class="fa-solid fa-arrow-up text-sm"></i>
         </div>
       </div>
@@ -306,9 +312,9 @@ body.theme-dark .text-rose-600 {
     <div class="bg-white p-6 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 border border-slate-100 lg:col-span-1">
       <div class="flex justify-between items-center mb-5">
         <h3 class="font-bold text-slate-800 flex items-center gap-2 text-sm">
-          <i class="fa-solid fa-pen-to-square text-indigo-600"></i> Catat Transaksi
+          <i class="fa-solid fa-pen-to-square text-indigo-500"></i> Catat Transaksi
         </h3>
-        <button onclick="openManageCategoryModal()" class="text-xs text-indigo-600 hover:text-indigo-700 hover:underline font-bold transition">
+        <button onclick="openManageCategoryModal()" class="text-xs text-indigo-500 hover:text-indigo-600 hover:underline font-bold transition">
           <i class="fa-solid fa-gear mr-1"></i> Kelola Kategori
         </button>
       </div>
@@ -317,7 +323,7 @@ body.theme-dark .text-rose-600 {
         <div>
           <label class="block text-xs font-bold text-slate-600 mb-1.5">Tipe Transaksi</label>
           <div class="grid grid-cols-2 gap-2">
-            <button type="button" id="btnTypePengeluaran" onclick="setType('pengeluaran')" class="py-2.5 text-xs font-bold rounded-2xl border bg-rose-100 border-rose-300 text-rose-800 flex items-center justify-center gap-1.5 transition-all shadow-sm">
+            <button type="button" id="btnTypePengeluaran" onclick="setType('pengeluaran')" class="py-2.5 text-xs font-bold rounded-2xl border bg-rose-500/15 border-rose-500/30 text-rose-500 flex items-center justify-center gap-1.5 transition-all shadow-sm">
               <i class="fa-solid fa-minus-circle"></i> Pengeluaran
             </button>
             <button type="button" id="btnTypePemasukan" onclick="setType('pemasukan')" class="py-2.5 text-xs font-semibold rounded-2xl border border-slate-200 text-slate-600 flex items-center justify-center gap-1.5 transition-all">
@@ -328,7 +334,7 @@ body.theme-dark .text-rose-600 {
 
         <div id="autoRoutineContainer" class="p-3 bg-indigo-50/80 rounded-2xl border border-indigo-100 flex items-center justify-between gap-2">
           <div class="flex items-center gap-2">
-            <i class="fa-solid fa-wand-magic-sparkles text-indigo-600 text-xs"></i>
+            <i class="fa-solid fa-wand-magic-sparkles text-indigo-500 text-xs"></i>
             <span class="text-xs font-bold text-indigo-950">Auto Routine Sekolahan</span>
           </div>
           <button type="button" onclick="openAutoWajibModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-xl transition shadow-sm">
@@ -370,11 +376,11 @@ body.theme-dark .text-rose-600 {
         <div class="flex justify-between items-center mb-5">
           <div>
             <h3 class="font-bold text-slate-800 flex items-center gap-2 text-sm">
-              <i class="fa-solid fa-bullseye text-indigo-600"></i> Target Non-Wajib & Tabungan
+              <i class="fa-solid fa-bullseye text-indigo-500"></i> Target Non-Wajib & Tabungan
             </h3>
             <p class="text-xs text-slate-400 font-medium mt-0.5">Pantau kemajuan tabungan kegiatan sekolah kamu</p>
           </div>
-          <button onclick="openAddGoalModal()" class="text-xs bg-indigo-50 hover:bg-indigo-100 text-indigo-600 font-bold px-3 py-2 rounded-xl border border-indigo-200/60 transition-all duration-300 hover:-translate-y-0.5 shadow-sm">
+          <button onclick="openAddGoalModal()" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3 py-2 rounded-xl border border-indigo-500/30 transition-all duration-300 hover:-translate-y-0.5 shadow-sm">
             <i class="fa-solid fa-plus mr-1"></i> Target Baru
           </button>
         </div>
@@ -391,7 +397,7 @@ body.theme-dark .text-rose-600 {
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-slate-100">
       <div>
         <h3 class="font-bold text-slate-800 flex items-center gap-2 text-sm">
-          <i class="fa-solid fa-chart-pie text-indigo-600"></i> Analisis & Rekap Keuangan
+          <i class="fa-solid fa-chart-pie text-indigo-500"></i> Analisis & Rekap Keuangan
         </h3>
         <p class="text-xs text-slate-400 font-medium mt-0.5">Pilih rentang tanggal untuk melihat statistik & ekspor laporan</p>
       </div>
@@ -476,7 +482,7 @@ body.theme-dark .text-rose-600 {
   <div class="bg-white p-6 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 border border-slate-100 space-y-5">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
       <h3 class="font-bold text-slate-800 flex items-center gap-2 text-sm">
-        <i class="fa-solid fa-list-check text-indigo-600"></i> Riwayat Transaksi
+        <i class="fa-solid fa-list-check text-indigo-500"></i> Riwayat Transaksi
       </h3>
       <span class="text-xs text-slate-400 font-medium" id="txtRecordInfo">Menampilkan data sesuai filter</span>
     </div>
@@ -504,7 +510,7 @@ body.theme-dark .text-rose-600 {
   <!-- Section: Kelola Cadangan Data (JSON) -->
   <div class="bg-white p-6 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 border border-slate-100">
     <h3 class="font-bold text-slate-800 flex items-center gap-2 mb-2 text-sm">
-      <i class="fa-solid fa-box-archive text-indigo-600"></i> Kelola Cadangan Data (JSON)
+      <i class="fa-solid fa-box-archive text-indigo-500"></i> Kelola Cadangan Data (JSON)
     </h3>
     <p class="text-xs text-slate-500 mb-5 font-medium leading-relaxed">Cadangkan (Ekspor) seluruh kategori dan target keuangan lokal Anda ke file JSON atau Pulihkan (Impor) kembali kapan saja.</p>
 
@@ -515,7 +521,7 @@ body.theme-dark .text-rose-600 {
 
       <label class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-xs font-bold px-4 py-2.5 rounded-2xl transition-all duration-300 hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer shadow-sm">
         <input type="file" id="importFile" accept=".json" onchange="imporDataKeuangan(event)" style="display:none;">
-        <i class="fa-solid fa-file-import text-indigo-600"></i> Pulihkan Data (Impor JSON)
+        <i class="fa-solid fa-file-import text-indigo-500"></i> Pulihkan Data (Impor JSON)
       </label>
     </div>
   </div>
@@ -529,7 +535,7 @@ body.theme-dark .text-rose-600 {
       <i class="fa-solid fa-xmark text-lg"></i>
     </button>
     <h3 class="text-base font-extrabold text-slate-800 flex items-center gap-2">
-      <i class="fa-solid fa-calendar-check text-indigo-600"></i> Generator Pengeluaran Wajib
+      <i class="fa-solid fa-calendar-check text-indigo-500"></i> Generator Pengeluaran Wajib
     </h3>
     <p class="text-xs text-slate-500 leading-relaxed font-medium">
       Fitur ini otomatis menghitung pengeluaran wajib sekolah <b>5 hari seminggu (Senin–Jumat)</b> untuk minggu tertentu.<br>
@@ -563,7 +569,7 @@ body.theme-dark .text-rose-600 {
       <i class="fa-solid fa-xmark text-lg"></i>
     </button>
     <h3 class="text-base font-extrabold text-slate-800 flex items-center gap-2">
-      <i class="fa-solid fa-sliders text-indigo-600"></i> Kelola Kategori Transaksi
+      <i class="fa-solid fa-sliders text-indigo-500"></i> Kelola Kategori Transaksi
     </h3>
 
     <div class="space-y-3">
@@ -591,7 +597,7 @@ body.theme-dark .text-rose-600 {
       <i class="fa-solid fa-xmark text-lg"></i>
     </button>
     <h3 id="modalGoalTitle" class="text-base font-extrabold text-slate-800 flex items-center gap-2">
-      <i class="fa-solid fa-bullseye text-indigo-600"></i> Tambah Target Impian Baru
+      <i class="fa-solid fa-bullseye text-indigo-500"></i> Tambah Target Impian Baru
     </h3>
     <input type="hidden" id="editingGoalId" value="">
 
@@ -793,11 +799,11 @@ function setType(type) {
   const autoRoutineBox = document.getElementById('autoRoutineContainer');
 
   if (type === 'pengeluaran') {
-    btnExpense.className = "py-2.5 text-xs font-bold rounded-2xl border bg-rose-100 border-rose-300 text-rose-800 flex items-center justify-center gap-1.5 transition-all shadow-sm";
+    btnExpense.className = "py-2.5 text-xs font-bold rounded-2xl border bg-rose-500/15 border-rose-500/30 text-rose-500 flex items-center justify-center gap-1.5 transition-all shadow-sm";
     btnIncome.className = "py-2.5 text-xs font-semibold rounded-2xl border border-slate-200 text-slate-600 flex items-center justify-center gap-1.5 transition-all";
     if(autoRoutineBox) autoRoutineBox.classList.remove('hidden');
   } else {
-    btnIncome.className = "py-2.5 text-xs font-bold rounded-2xl border bg-emerald-100 border-emerald-300 text-emerald-800 flex items-center justify-center gap-1.5 transition-all shadow-sm";
+    btnIncome.className = "py-2.5 text-xs font-bold rounded-2xl border bg-emerald-500/15 border-emerald-500/30 text-emerald-500 flex items-center justify-center gap-1.5 transition-all shadow-sm";
     btnExpense.className = "py-2.5 text-xs font-semibold rounded-2xl border border-slate-200 text-slate-600 flex items-center justify-center gap-1.5 transition-all";
     if(autoRoutineBox) autoRoutineBox.classList.add('hidden');
   }
@@ -1093,31 +1099,31 @@ function renderTransactions() {
     
     card.innerHTML = `
       <div class="flex items-start gap-3">
-        <div class="w-10 h-10 rounded-2xl ${isInc ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'} flex items-center justify-center shrink-0 mt-0.5">
+        <div class="w-10 h-10 rounded-2xl ${isInc ? 'bg-emerald-500/15 text-emerald-500' : 'bg-rose-500/15 text-rose-500'} flex items-center justify-center shrink-0 mt-0.5">
           <i class="fa-solid ${isInc ? 'fa-arrow-down' : 'fa-arrow-up'} text-sm"></i>
         </div>
         <div class="space-y-1">
           <div class="flex items-center gap-2 flex-wrap">
             <span class="font-bold text-xs text-slate-800">${t.category}</span>
             ${isInc ? 
-              `<span class="px-2 py-0.5 text-[10px] rounded-md font-extrabold bg-emerald-200 text-emerald-900">Pemasukan</span>` : 
-              `<span class="px-2 py-0.5 text-[10px] rounded-md font-extrabold ${isWajib ? 'bg-amber-200 text-amber-950' : 'bg-blue-200 text-blue-950'}">${isWajib ? 'Wajib' : 'Non-Wajib'}</span>`
+              `<span class="px-2 py-0.5 text-[10px] rounded-md font-extrabold bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">Pemasukan</span>` : 
+              `<span class="px-2 py-0.5 text-[10px] rounded-md font-extrabold ${isWajib ? 'bg-amber-500/20 text-amber-600 dark:text-amber-400' : 'bg-blue-500/20 text-blue-600 dark:text-blue-400'}">${isWajib ? 'Wajib' : 'Non-Wajib'}</span>`
             }
           </div>
           <p class="text-[11px] text-slate-500 font-medium">${displayNote}</p>
           <div class="flex items-center gap-2 text-[10px] text-slate-400 font-semibold">
             <span><i class="fa-regular fa-calendar mr-1"></i>${formatDate(t.date)}</span>
             <span>•</span>
-            <span class="text-indigo-900 font-bold">Saldo: ${formatRupiah(t.balanceAfter)}</span>
+            <span class="text-indigo-400 font-bold">Saldo: ${formatRupiah(t.balanceAfter)}</span>
           </div>
         </div>
       </div>
 
       <div class="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-200/60">
-        <span class="text-sm font-extrabold ${isInc ? 'text-emerald-600' : 'text-slate-800'}">
+        <span class="text-sm font-extrabold ${isInc ? 'text-emerald-500' : 'text-slate-800'}">
           ${isInc ? '+' : '-'}${formatRupiah(t.amount)}
         </span>
-        <button onclick="deleteTransaction('${t.id}')" class="text-rose-500 hover:text-rose-700 p-2 rounded-xl hover:bg-rose-100/60 transition" title="Hapus">
+        <button onclick="deleteTransaction('${t.id}')" class="text-rose-500 hover:text-rose-700 p-2 rounded-xl hover:bg-rose-500/10 transition" title="Hapus">
           <i class="fa-solid fa-trash-can text-xs"></i>
         </button>
       </div>
@@ -1267,20 +1273,21 @@ function renderGoals() {
           <span class="text-[10px] text-slate-400">Kat: ${g.categoryName}</span>
         </div>
         <div class="flex items-center gap-1">
-          <button onclick="editGoal('${g.id}')" class="text-slate-400 hover:text-indigo-600 p-1"><i class="fa-solid fa-pen text-[10px]"></i></button>
-          <button onclick="deleteGoal('${g.id}')" class="text-slate-400 hover:text-rose-600 p-1"><i class="fa-solid fa-trash text-[10px]"></i></button>
+          <button onclick="editGoal('${g.id}')" class="text-slate-400 hover:text-indigo-500 p-1"><i class="fa-solid fa-pen text-[10px]"></i></button>
+          <button onclick="deleteGoal('${g.id}')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-trash text-[10px]"></i></button>
         </div>
       </div>
 
       <div>
         <div class="flex justify-between text-[11px] mb-1 font-semibold">
-          <span class="text-indigo-600">${formatRupiah(currentSaved)}</span>
+          <span class="text-indigo-400 font-bold">${formatRupiah(currentSaved)}</span>
           <span class="text-slate-400">/ ${formatRupiah(g.target)}</span>
         </div>
-        <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
-          <div class="bg-indigo-600 h-2 rounded-full transition-all duration-500" style="width: ${pct}%"></div>
+        <!-- Modern Dynamic Gradient Progress Bar -->
+        <div class="w-full bg-slate-700/40 rounded-full h-2.5 overflow-hidden p-0.5 border border-slate-600/30">
+          <div class="bg-gradient-to-r from-cyan-500 to-emerald-400 h-1.5 rounded-full transition-all duration-500" style="width: ${pct}%"></div>
         </div>
-        <span class="text-[10px] font-bold text-slate-500 mt-1 block text-right">${pct}% Tercapai</span>
+        <span class="text-[10px] font-bold text-slate-400 mt-1 block text-right">${pct}% Tercapai</span>
       </div>
     `;
     container.appendChild(card);
@@ -1291,7 +1298,7 @@ function openAddGoalModal() {
   document.getElementById('editingGoalId').value = '';
   document.getElementById('goalTitle').value = '';
   document.getElementById('goalTarget').value = '';
-  document.getElementById('modalGoalTitle').innerHTML = '<i class="fa-solid fa-bullseye text-indigo-600"></i> Tambah Target Impian Baru';
+  document.getElementById('modalGoalTitle').innerHTML = '<i class="fa-solid fa-bullseye text-indigo-500"></i> Tambah Target Impian Baru';
   document.getElementById('modalAddGoal').classList.remove('hidden');
 }
 
@@ -1342,7 +1349,7 @@ function editGoal(id) {
   document.getElementById('editingGoalId').value = g.id;
   document.getElementById('goalTitle').value = g.title;
   document.getElementById('goalTarget').value = g.target;
-  document.getElementById('modalGoalTitle').innerHTML = '<i class="fa-solid fa-pen-to-square text-indigo-600"></i> Edit Target Impian';
+  document.getElementById('modalGoalTitle').innerHTML = '<i class="fa-solid fa-pen-to-square text-indigo-500"></i> Edit Target Impian';
   document.getElementById('modalAddGoal').classList.remove('hidden');
 }
 
