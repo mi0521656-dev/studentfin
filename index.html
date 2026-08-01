@@ -259,16 +259,18 @@ body.theme-dark .text-rose-600 {
 
   <!-- Ringkasan Saldo & Dashboard -->
   <div class="bg-white p-6 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 border border-slate-100 space-y-5">
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
         <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Saldo Saat Ini</span>
         <h2 id="txtTotalSaldo" class="text-3xl font-extrabold text-slate-800 tracking-tight mt-1">Rp 0</h2>
       </div>
-      <div class="text-xs text-slate-600 bg-indigo-50/80 p-3 rounded-2xl border border-indigo-100 flex items-center gap-2.5" id="txtLimitHarian">
+
+      <!-- Batas Belanja Harian (Gaya Kompak, Rapi & Ringkas) -->
+      <div class="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-indigo-50/70 border border-indigo-100 text-slate-700 text-xs" id="txtLimitHarian">
         <i class="fa-solid fa-circle-info text-indigo-500 text-sm shrink-0"></i>
-        <div>
-          <span class="block text-[10px] font-semibold text-indigo-900 uppercase tracking-wider">Batas Belanja Harian</span>
-          <strong class="font-extrabold text-indigo-950 text-xs" id="valLimitHarian">Rp 0/hari</strong>
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <span class="font-medium text-slate-500">Batas Belanja Harian:</span>
+          <strong class="font-bold text-indigo-950" id="valLimitHarian">Rp 0/hari</strong>
         </div>
       </div>
     </div>
@@ -913,7 +915,11 @@ function updateDashboard() {
     dailyLimit = Math.floor(totalSaldo / remainingDays);
   }
 
-  document.getElementById('valLimitHarian').textContent = `${formatRupiah(dailyLimit)}/hari`;
+  // Tampilkan Batas Harian dengan kondisi aman (Fallback)
+  const valLimitEl = document.getElementById('valLimitHarian');
+  if (valLimitEl) {
+    valLimitEl.textContent = dailyLimit > 0 ? `${formatRupiah(dailyLimit)}/hari` : 'Rp 0/hari';
+  }
 
   updateAnalysis();
 }
