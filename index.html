@@ -1414,28 +1414,62 @@ function toggleVoiceRecognition() {
   }
 }
 
-function processVoiceCommand(text) {
-  const originalText = text;
-  text = text.toLowerCase();
-  showToast(`Suara terdeteksi: "${originalText}"`);
+function processVoiceText(text) {
+  console.log("Teks diterima:", text);
+  const lowerText = text.toLowerCase();
 
-  const numberMatches = text.match(/\d+/g);
+  // 1. Deteksi Jenis Transaksi (Default: Pengeluaran)
+  let type = 'expense';
+  if (lowerText.includes('pemasukan') || lowerText.includes('terima') || lowerText.includes('dapat') || lowerText.includes('gaji') || lowerText.includes('saku')) {
+    type = 'income';
+  }
+
+  // 2. Ekstrak Angka (Nominal) dari Kalimat Suara
+  // Mengubah kalimat seperti "lima puluh ribu" atau "50000" menjadi angka murni
   let amount = 0;
-
-  if (numberMatches) {
-    amount = parseInt(numberMatches.join(''));
-    if (text.includes('ribu')) amount *= 1000;
-    if (text.includes('juta')) amount *= 1000000;
+  
+  // Ambil semua deretan angka dalam kalimat
+  const numbersOnly = lowerText.match(/\d+/g);
+  
+  if (numbersOnly) {
+    amount = parseInt(numbersOnly.join(''), 10);
+  } else {
+    // Jika Google merubah angka jadi teks (misal: "seribu", "sepuluh ribu")
+    if (lowerText.includes('juta')) amount = 1000000;
+    else if (lowerText.includes('ratus ribu')) amount = 100000;
+    else if (lowerText.includes('lima puluh ribu')) amount = 50000;
+    else if (lowerText.includes('dua puluh ribu')) amount = 20000;
+    else if (lowerText.includes('sepuluh ribu')) amount = 10000;
+    else if (lowerText.includes('lima ribu')) amount = 5000;
+    else if (lowerText.includes('dua ribu')) amount = 2000;
+    else if (lowerText.includes('seribu')) amount = 1000;
   }
 
-  // Bersihkan teks untuk keterangan (menggunakan fungsi helper)
-  let cleanNote = cleanNoteText(text);
-
-  if (amount > 0) {
-    document.getElementById('txAmount').value = amount;
-    document.getElementById('txNote').value = cleanNote;
-    showToast(`Parsed: Rp ${amount.toLocaleString('id-ID')}`);
+  // Jika angka tidak ditemukan sama sekali
+  if (!amount || amount === 0) {
+    alert(`Suara terdeteksi: "${text}"\n\nTapi nominal angka tidak ditemukan. Coba ucapkan contoh: "Beli bakso 15 ribu"`);
+    return;
   }
+
+  // 3. Bersihkan Deskripsi Transaksi (Hapus kata nominal & jenis)
+  let description = lowerText
+    .replace(/(pemasukan|pengeluaran|bayar|beli|untuk|rp|rupiah|\d+)/g, '')
+    .replace(/(ribu|juta)/g, '')
+    .trim();
+
+  if (!description) description = (type === 'income') ? 'Pemasukan Suara' : 'Pengeluaran Suara';
+
+  // 4. Masukkan ke Input Form / Database Kamu
+  // Sesuaikan ID elemen di bawah dengan yang ada di index.html kamu:
+  if (document.getElementById('amountInput')) document.getElementById('amountInput').value = amount;
+  if (document.getElementById('descInput')) document.getElementById('descInput').value = description;
+  if (document.getElementById('typeInput')) document.getElementById('typeInput').value = type;
+
+  // Beri notifikasi sukses ke pengguna
+  alert(`Berhasil diproses!\nJenis: ${type === 'income' ? 'Pemasukan' : 'Pengeluaran'}\nNominal: Rp ${amount.toLocaleString('id-ID')}\nKeterangan: ${description}`);
+
+  // Jika ada fungsi simpan otomatis, panggil di sini
+  // saveTransaction(); 
 }
 
 function formatRupiah(number) {
