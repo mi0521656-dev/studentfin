@@ -757,7 +757,7 @@ function populateCategoryDropdown() {
 
 // Add Transaction to Supabase
 async function addTransaction(e) {
-  e.preventDefault();
+  if(e) e.preventDefault();
   const date = document.getElementById('txDate').value;
   const categoryName = document.getElementById('txCategory').value;
   const amount = parseFloat(document.getElementById('txAmount').value);
@@ -1414,27 +1414,36 @@ function toggleVoiceRecognition() {
   }
 }
 
-function processVoiceText(text) {
-  console.log("Teks diterima:", text);
+// FUNGSI UTAMA ENGINE SUARA & PEMROSES TEKS BERSAMA SUPABASE
+function processVoiceCommand(text) {
+  if (!text) return;
   const lowerText = text.toLowerCase();
 
-  // 1. Deteksi Jenis Transaksi (Default: Pengeluaran)
-  let type = 'expense';
-  if (lowerText.includes('pemasukan') || lowerText.includes('terima') || lowerText.includes('dapat') || lowerText.includes('gaji') || lowerText.includes('saku')) {
-    type = 'income';
+  // 1. Tentukan jenis transaksi
+  let type = 'pengeluaran';
+  if (lowerText.includes('pemasukan') || lowerText.includes('terima') || lowerText.includes('dapat') || lowerText.includes('gaji') || lowerText.includes('saku') || lowerText.includes('masuk')) {
+    type = 'pemasukan';
   }
 
-  // 2. Ekstrak Angka (Nominal) dari Kalimat Suara
-  // Mengubah kalimat seperti "lima puluh ribu" atau "50000" menjadi angka murni
+  // Set tipe di UI
+  setType(type);
+
+  // 2. Parser Nominal Angka
   let amount = 0;
-  
-  // Ambil semua deretan angka dalam kalimat
-  const numbersOnly = lowerText.match(/\d+/g);
-  
-  if (numbersOnly) {
-    amount = parseInt(numbersOnly.join(''), 10);
+  const matchDigits = lowerText.match(/\d+/g);
+
+  if (matchDigits) {
+    let baseNum = parseInt(matchDigits.join(''), 10);
+    // Cek multiplier kata (ribu / juta / rb / jt)
+    if (lowerText.includes('juta') || lowerText.includes('jt')) {
+      amount = baseNum < 1000 ? baseNum * 1000000 : baseNum;
+    } else if (lowerText.includes('ribu') || lowerText.includes('rb')) {
+      amount = baseNum < 1000 ? baseNum * 1000 : baseNum;
+    } else {
+      amount = baseNum;
+    }
   } else {
-    // Jika Google merubah angka jadi teks (misal: "seribu", "sepuluh ribu")
+    // Fallback kata tulisan
     if (lowerText.includes('juta')) amount = 1000000;
     else if (lowerText.includes('ratus ribu')) amount = 100000;
     else if (lowerText.includes('lima puluh ribu')) amount = 50000;
@@ -1445,31 +1454,40 @@ function processVoiceText(text) {
     else if (lowerText.includes('seribu')) amount = 1000;
   }
 
-  // Jika angka tidak ditemukan sama sekali
-  if (!amount || amount === 0) {
-    alert(`Suara terdeteksi: "${text}"\n\nTapi nominal angka tidak ditemukan. Coba ucapkan contoh: "Beli bakso 15 ribu"`);
+  if (!amount || amount <= 0) {
+    showToast(`Suara: "${text}" (Nominal tidak terdeteksi)`);
     return;
   }
 
-  // 3. Bersihkan Deskripsi Transaksi (Hapus kata nominal & jenis)
-  let description = lowerText
-    .replace(/(pemasukan|pengeluaran|bayar|beli|untuk|rp|rupiah|\d+)/g, '')
-    .replace(/(ribu|juta)/g, '')
-    .trim();
+  // 3. Cari Kategori Paling Cocok
+  let matchedCategory = '';
+  const availableCats = categories.filter(c => type === 'pemasukan' ? c.type === 'pemasukan' : c.type !== 'pemasukan');
+  
+  for (let c of availableCats) {
+    if (lowerText.includes(c.name.toLowerCase())) {
+      matchedCategory = c.name;
+      break;
+    }
+  }
 
-  if (!description) description = (type === 'income') ? 'Pemasukan Suara' : 'Pengeluaran Suara';
+  if (!matchedCategory) {
+    matchedCategory = type === 'pemasukan' ? 'Uang Saku' : 'Lain-lain';
+  }
 
-  // 4. Masukkan ke Input Form / Database Kamu
-  // Sesuaikan ID elemen di bawah dengan yang ada di index.html kamu:
-  if (document.getElementById('amountInput')) document.getElementById('amountInput').value = amount;
-  if (document.getElementById('descInput')) document.getElementById('descInput').value = description;
-  if (document.getElementById('typeInput')) document.getElementById('typeInput').value = type;
+  // 4. Bersihkan Keterangan
+  let noteText = cleanNoteText(lowerText);
 
-  // Beri notifikasi sukses ke pengguna
-  alert(`Berhasil diproses!\nJenis: ${type === 'income' ? 'Pemasukan' : 'Pengeluaran'}\nNominal: Rp ${amount.toLocaleString('id-ID')}\nKeterangan: ${description}`);
+  // 5. Isikan ke Form HTML
+  document.getElementById('txCategory').value = matchedCategory;
+  document.getElementById('txAmount').value = amount;
+  document.getElementById('txNote').value = noteText;
 
-  // Jika ada fungsi simpan otomatis, panggil di sini
-  // saveTransaction(); 
+  // 6. Langsung Simpan Otomatis ke Supabase
+  addTransaction();
+}
+
+function processVoiceText(text) {
+  processVoiceCommand(text);
 }
 
 function formatRupiah(number) {
