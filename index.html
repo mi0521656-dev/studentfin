@@ -205,7 +205,7 @@ body.theme-dark .text-rose-600 {
       <div class="inline-flex bg-indigo-500/20 p-3 rounded-2xl border border-indigo-400/30 mb-2">
         <i class="fa-solid fa-wallet text-3xl text-amber-400"></i>
       </div>
-      <h2 class="text-2xl font-extrabold tracking-tight">KantongPelajar <span class="text-amber-300 text-xs px-2 py-0.5 bg-indigo-900/80 rounded-full border border-indigo-400/30">Cerdas</span></h2>
+      <h2 class="text-2xl font-extrabold tracking-tight">Studentfin <span class="text-amber-300 text-xs px-2 py-0.5 bg-indigo-900/80 rounded-full border border-indigo-400/30">Cerdas</span></h2>
       <p class="text-xs text-indigo-200/80">Kelola keuangan sekolahmu dengan cerdas & tertata</p>
     </div>
 
@@ -262,33 +262,36 @@ body.theme-dark .text-rose-600 {
 <!-- MAIN APP CONTAINER (Dihide secara default sampai user Terautentikasi) -->
 <div id="appContainer" class="hidden flex-col min-h-screen">
 
-<!-- Header Navigation dengan Gradasi Seimbang & Tema Sejajar di Pojok Kanan Atas -->
+<!-- Header Navigation dengan Profil di Kiri menggantikan Ikon Dompet -->
 <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white sticky top-0 z-30 backdrop-blur-md bg-opacity-95 shadow-md border-b border-indigo-500/20">
-  <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center w-full">
-    <div class="flex items-center space-x-3">
-      <div class="bg-indigo-500/20 p-2 rounded-2xl backdrop-blur-md border border-indigo-400/30 shadow-inner shrink-0">
-        <i class="fa-solid font-bold fa-wallet text-lg text-amber-400"></i>
+  <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center w-full gap-2">
+    <!-- Profil Pengguna & Judul Web -->
+    <div class="flex items-center space-x-3 shrink-0">
+      <!-- Foto Profil User (Pojok Kiri) -->
+      <div id="userAvatarIcon" class="w-10 h-10 rounded-full bg-indigo-600 text-white font-extrabold text-base flex items-center justify-center uppercase border-2 border-indigo-400/50 shadow-md shrink-0 overflow-hidden">
+        U
       </div>
       <div>
         <h1 class="font-extrabold text-base leading-tight tracking-tight flex items-center">
-          KantongPelajar 
+          Studentfin 
           <span class="text-amber-300 text-[10px] px-1.5 py-0.5 bg-indigo-900/80 rounded-full font-bold ml-1.5 border border-indigo-400/30">Cerdas</span>
         </h1>
-        <p class="text-[10px] text-indigo-200/80 font-medium hidden sm:block">Manajemen Keuangan Sekolah & Target</p>
+        <!-- Nama/Email Pengguna di Bawah Judul -->
+        <p id="userDisplayEmail" class="text-[11px] text-indigo-200 font-semibold max-w-[150px] sm:max-w-[220px] truncate leading-tight">
+          user@email.com
+        </p>
       </div>
     </div>
 
     <!-- Right Header Controls -->
-    <div class="flex items-center gap-2">
-      <!-- User Info & Logout Button -->
-      <div class="flex items-center gap-2 bg-slate-800/80 p-1.5 pl-3 rounded-2xl border border-slate-700 text-xs backdrop-blur-sm">
-        <span id="userDisplayEmail" class="font-semibold text-indigo-200 text-[11px] max-w-[120px] sm:max-w-[180px] truncate">user@email.com</span>
-        <button onclick="handleLogout()" title="Keluar Akun" class="bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 p-1.5 rounded-xl transition">
-          <i class="fa-solid fa-right-from-bracket text-xs"></i>
-        </button>
-      </div>
+    <div class="flex items-center gap-2 min-w-0">
+      <!-- Tombol Logout -->
+      <button onclick="handleLogout()" title="Keluar Akun" class="bg-slate-800/80 hover:bg-rose-500/30 text-rose-300 p-2 rounded-2xl border border-slate-700 text-xs backdrop-blur-sm transition shrink-0 flex items-center gap-1.5 font-bold">
+        <i class="fa-solid fa-right-from-bracket text-xs"></i>
+        <span class="hidden sm:inline text-xs">Keluar</span>
+      </button>
 
-      <!-- Theme Selector Panel Dropdown (Pojok Kanan Atas) -->
+      <!-- Theme Selector Panel Dropdown -->
       <div class="relative shrink-0">
         <button id="themeDropdownBtn" onclick="toggleThemeMenu()" class="bg-slate-800/80 hover:bg-slate-800 p-2 px-3 rounded-2xl border border-slate-700 text-xs backdrop-blur-sm flex items-center gap-2 transition-all">
           <span id="currentThemeIcon"><i class="fa-solid fa-sun text-amber-400"></i></span>
@@ -343,7 +346,7 @@ body.theme-dark .text-rose-600 {
         <h2 id="txtTotalSaldo" class="text-3xl font-extrabold text-slate-800 tracking-tight mt-1">Rp 0</h2>
       </div>
 
-      <!-- Batas Belanja Harian (Satu Kontainer yang Dijamin Selalu Muncul) -->
+      <!-- Batas Belanja Harian -->
       <div class="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-indigo-50/70 border border-indigo-100 text-slate-700 text-xs font-medium">
         <i class="fa-solid fa-circle-info text-indigo-500 text-sm shrink-0"></i>
         <span>Batas Belanja Harian:</span>
@@ -590,7 +593,7 @@ body.theme-dark .text-rose-600 {
     <h3 class="font-bold text-slate-800 flex items-center gap-2 mb-2 text-sm">
       <i class="fa-solid fa-box-archive text-indigo-500"></i> Kelola Cadangan Data (JSON)
     </h3>
-    <p class="text-xs text-slate-500 mb-5 font-medium leading-relaxed">Cadangkan (Ekspor) seluruh kategori dan target keuangan lokal Anda ke file JSON atau Pulihkan (Impor) kembali kapan saja.</p>
+    <p class="text-xs text-slate-500 mb-5 font-medium leading-relaxed">Cadangkan (Ekspor) seluruh riwayat transaksi Supabase, kategori, dan target keuangan Anda ke file JSON atau Pulihkan (Impor) kembali kapan saja.</p>
 
     <div class="flex flex-wrap items-center gap-3">
       <button onclick="eksporDataKeuangan()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-2xl transition-all duration-300 hover:-translate-y-0.5 flex items-center gap-2 shadow-sm">
@@ -762,7 +765,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const { data: { session } } = await supabaseClient.auth.getSession();
   handleAuthState(session);
 
-  // Pasang Listener Perubahan Sesi (Login / Logout / Session Refresh)
+  // Pasang Listener Perubahan Sesi
   supabaseClient.auth.onAuthStateChange((_event, session) => {
     handleAuthState(session);
   });
@@ -779,20 +782,36 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-// FUNGSI MANAJEMEN SESI AUTH
+// FUNGSI MANAJEMEN SESI AUTH & PROFIL USER
 function handleAuthState(session) {
   const authSec = document.getElementById('authSection');
   const appContainer = document.getElementById('appContainer');
 
   if (session) {
     currentUser = session.user;
-    document.getElementById('userDisplayEmail').textContent = currentUser.email;
+    
+    // Dapatkan Nama / Email Pengguna dari Metadata Supabase
+    const userMetaData = currentUser.user_metadata || {};
+    const displayName = userMetaData.full_name || userMetaData.name || currentUser.email || 'User Studentfin';
+    const avatarUrl = userMetaData.avatar_url || userMetaData.picture;
+
+    const nameEl = document.getElementById('userDisplayEmail');
+    if (nameEl) nameEl.textContent = displayName;
+    
+    const avatarEl = document.getElementById('userAvatarIcon');
+    if (avatarEl) {
+      if (avatarUrl) {
+        avatarEl.innerHTML = `<img src="${avatarUrl}" alt="PP" class="w-full h-full object-cover">`;
+      } else {
+        const initial = displayName.charAt(0).toUpperCase();
+        avatarEl.textContent = initial;
+      }
+    }
 
     authSec.classList.add('hidden');
     appContainer.classList.remove('hidden');
     appContainer.classList.add('flex');
 
-    // Inisialisasi Data Aplikasi Pengguna
     initDates();
     populateCategoryDropdown();
     renderGoals();
@@ -912,7 +931,6 @@ function setTheme(theme) {
   if (transactions.length > 0) updateAnalysis();
 }
 
-// Helper Bersihkan Keterangan
 function cleanNoteText(rawText) {
   if (!rawText) return '-';
   
@@ -940,7 +958,6 @@ function cleanNoteText(rawText) {
   return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
 }
 
-// Ambil Data dari Supabase Database (Diterapkan Filter User)
 async function fetchTransactions() {
   if (!currentUser) return;
 
@@ -1015,7 +1032,6 @@ function populateCategoryDropdown() {
   });
 }
 
-// Add Transaction (Mengaitkan dengan user_id)
 async function addTransaction(e) {
   if(e) e.preventDefault();
   if(!currentUser) {
@@ -1104,7 +1120,6 @@ function updateDashboard() {
   document.getElementById('txtWajibTotal').textContent = formatRupiah(wajibTotal);
   document.getElementById('txtNonWajibTotal').textContent = formatRupiah(nonWajibTotal);
 
-  // Perhitungan Batas Belanja Harian
   const today = new Date();
   const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
   const remainingDays = Math.max(1, daysInMonth - today.getDate() + 1);
@@ -1390,7 +1405,7 @@ function exportToExcelXLSX() {
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, "Laporan Transaksi");
 
-  const fileName = `Laporan_KantongPelajar_${new Date().toISOString().slice(0,10)}.xlsx`;
+  const fileName = `Laporan_Studentfin_${new Date().toISOString().slice(0,10)}.xlsx`;
   XLSX.writeFile(workbook, fileName);
   showToast('Laporan Excel (.xlsx) rapih berhasil diunduh!');
 }
@@ -1617,10 +1632,12 @@ function deleteCategory(id) {
   showToast('Kategori dihapus');
 }
 
+// FUNGSI EKSPOR DATA JSON LENGKAP
 function eksporDataKeuangan() {
   const data = {
     categories: categories,
     goals: goals,
+    transactions: transactions,
     exportedAt: new Date().toISOString()
   };
   const jsonStr = JSON.stringify(data, null, 2);
@@ -1628,28 +1645,115 @@ function eksporDataKeuangan() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `Backup_KantongPelajar_${new Date().toISOString().slice(0,10)}.json`;
+  a.download = `Backup_Studentfin_${new Date().toISOString().slice(0,10)}.json`;
   a.click();
   URL.revokeObjectURL(url);
-  showToast('Cadangan JSON berhasil diunduh!');
+  showToast('Cadangan JSON lengkap berhasil diunduh!');
 }
 
+// FUNGSI IMPOR DATA JSON LENGKAP DENGAN PERBAIKAN STRUKTUR & SUPABASE
 function imporDataKeuangan(e) {
   const file = e.target.files[0];
   if (!file) return;
 
   const reader = new FileReader();
-  reader.onload = function(event) {
+  reader.onload = async function(event) {
     try {
       const imported = JSON.parse(event.target.result);
-      if (imported.categories) categories = imported.categories;
-      if (imported.goals) goals = imported.goals;
+      
+      // 1. Sinkronisasi Kategori
+      if (imported.categories && Array.isArray(imported.categories)) {
+        imported.categories.forEach(impCat => {
+          if (!categories.some(c => c.name.toLowerCase() === (impCat.name || '').toLowerCase())) {
+            categories.push({
+              id: impCat.id || ('c_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4)),
+              name: impCat.name,
+              type: impCat.type || 'pengeluaran_non_wajib'
+            });
+          }
+        });
+      }
+
+      // 2. Sinkronisasi Target/Goals
+      if (imported.goals && Array.isArray(imported.goals)) {
+        imported.goals.forEach(impGoal => {
+          if (!goals.some(g => g.title.toLowerCase() === (impGoal.title || '').toLowerCase())) {
+            goals.push({
+              id: impGoal.id || ('g_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4)),
+              title: impGoal.title,
+              target: parseFloat(impGoal.target) || 0,
+              categoryName: impGoal.categoryName || impGoal.title
+            });
+          }
+        });
+      }
+      
       saveData();
+
+      // 3. Impor Transaksi ke Supabase
+      const rawTxList = imported.transactions || imported.transaksi || (Array.isArray(imported) ? imported : []);
+      
+      if (rawTxList && Array.isArray(rawTxList) && rawTxList.length > 0) {
+        if (!currentUser) {
+          showToast('Silakan login terlebih dahulu untuk mengimpor transaksi.');
+          return;
+        }
+
+        const formattedTx = rawTxList.map((t, idx) => {
+          const categoryName = t.category || t.kategori || 'Lain-lain';
+          
+          let catType = t.categoryType || t.category_type;
+          if (!catType) {
+            const catObj = categories.find(c => c.name.toLowerCase() === categoryName.toLowerCase());
+            catType = catObj ? catObj.type : ((t.type || t.jenis) === 'pemasukan' ? 'pemasukan' : 'pengeluaran_non_wajib');
+          }
+
+          let cleanAmount = t.amount !== undefined ? t.amount : t.jumlah;
+          if (typeof cleanAmount === 'string') {
+            cleanAmount = cleanAmount.replace(/[^0-9.-]+/g, "");
+          }
+          cleanAmount = parseFloat(cleanAmount) || 0;
+
+          let rawDate = t.date || t.tanggal || new Date().toISOString().slice(0, 10);
+
+          return {
+            id: t.id ? (String(t.id).startsWith('tx_') ? String(t.id) : 'tx_' + String(t.id)) : 'tx_' + Date.now() + '_' + idx,
+            user_id: currentUser.id,
+            date: rawDate,
+            type: t.type || t.jenis || 'pengeluaran',
+            category_type: catType,
+            category: categoryName,
+            amount: cleanAmount,
+            note: cleanNoteText(t.note || t.keterangan || '-')
+          };
+        });
+
+        // Simpan atau perbarui data transaksi ke Supabase via upsert
+        const { error } = await supabaseClient
+          .from('transactions')
+          .upsert(formattedTx, { onConflict: 'id' });
+
+        if (error) {
+          console.error('Supabase Impor Error Detail:', error);
+          showToast(`Gagal impor: ${error.message || 'Konflik data Supabase'}`);
+        } else {
+          showToast('Data transaksi & pengaturan berhasil dipulihkan!');
+        }
+      } else {
+        showToast('Pengaturan berhasil dipulihkan (tidak ada data transaksi).');
+      }
+
       populateCategoryDropdown();
       renderGoals();
-      showToast('Data berhasil dipulihkan dari JSON!');
+      await fetchTransactions();
+
+      // Reset file input
+      e.target.value = '';
+
     } catch (err) {
-      showToast('Format JSON tidak valid!');
+      console.error('JSON Import Error:', err);
+      showToast('Format JSON tidak valid atau file rusak!');
+      e.target.value = '';
     }
   };
   reader.readAsText(file);
@@ -1802,7 +1906,7 @@ function showToast(msg) {
   toast.classList.remove('translate-y-20', 'opacity-0');
   setTimeout(() => {
     toast.classList.add('translate-y-20', 'opacity-0');
-  }, 3000);
+  }, 3500);
 }
 </script>
 </body>
