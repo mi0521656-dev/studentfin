@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+  <meta name="google-site-verification" content="kode_unik_kamu_disini" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Studentfin - Manajemen Keuangan Pelajar</title>
@@ -622,22 +623,30 @@ body.theme-dark .text-rose-600 {
 
     <!-- Form Update Profil -->
     <form id="formProfile" onsubmit="handleUpdateProfile(event)" class="space-y-4">
+      <!-- Avatar Preview dengan Tombol Ubah di Samping Kanan Bawah Luar Ring -->
       <div class="flex flex-col items-center justify-center space-y-2">
-        <div id="profileAvatarPreview" class="w-20 h-20 rounded-full bg-indigo-600 text-white font-extrabold text-2xl flex items-center justify-center uppercase border-4 border-indigo-100 shadow-md overflow-hidden">
-          U
+        <div class="relative inline-block">
+          <!-- Lingkaran Avatar Utama -->
+          <div onclick="openFullAvatarView()" class="w-24 h-24 rounded-full bg-indigo-600 text-white font-extrabold text-3xl flex items-center justify-center uppercase border-4 border-indigo-100 shadow-lg cursor-pointer overflow-hidden transition-all hover:scale-105" title="Klik untuk lihat gambar penuh">
+            <div id="profileAvatarPreview" class="w-full h-full flex items-center justify-center uppercase">
+              U
+            </div>
+          </div>
+          
+          <!-- Tombol Ubah Foto (Ukuran Lebih Kecil & Berada di Samping Kanan Bawah Luar) -->
+          <button type="button" onclick="triggerAvatarUpload()" class="absolute bottom-0 -right-1 z-10 w-8 h-8 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white border-2 border-white flex items-center justify-center shadow-md transition-transform active:scale-95" title="Ubah Foto Profil">
+            <i class="fa-solid fa-camera text-xs"></i>
+          </button>
         </div>
-        <span class="text-[10px] text-slate-400 font-medium">Preview Foto Profil</span>
+        
+        <!-- Hidden File Input untuk Pilih dari Galeri/Penyimpanan -->
+        <input type="file" id="editAvatarFile" accept="image/*" onchange="handleAvatarFileSelect(event)" class="hidden">
+        <span class="text-[10px] text-slate-400 font-medium">Klik avatar untuk memperbesar • Klik ikon kamera untuk memilih foto</span>
       </div>
 
       <div>
         <label class="block text-xs font-bold text-slate-700 mb-1.5">Nama Pengguna</label>
         <input type="text" id="editDisplayName" placeholder="Masukkan nama Anda" required class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition font-medium">
-      </div>
-
-      <div>
-        <label class="block text-xs font-bold text-slate-700 mb-1.5">URL Foto Profil (Image Link)</label>
-        <input type="url" id="editAvatarUrl" placeholder="https://example.com/foto.jpg" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition font-medium">
-        <p class="text-[10px] text-slate-400 mt-1">Masukkan URL langsung gambar Anda untuk mengganti avatar.</p>
       </div>
 
       <button type="submit" id="btnSaveProfile" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold py-2.5 rounded-xl shadow-sm transition">
@@ -658,6 +667,18 @@ body.theme-dark .text-rose-600 {
       <button type="button" onclick="handleDeleteUser()" id="btnDeleteUser" class="w-full mt-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold py-2.5 rounded-xl shadow-sm transition">
         <i class="fa-solid fa-trash-can mr-1"></i> Hapus Akun & Data Permanen
       </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Fullview Avatar Gambar Utuh -->
+<div id="modalFullAvatar" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex flex-col items-center justify-center p-4 transition-all" onclick="closeFullAvatarView()">
+  <div class="relative max-w-lg max-h-[85vh] p-2 flex flex-col items-center" onclick="event.stopPropagation()">
+    <button onclick="closeFullAvatarView()" class="absolute -top-10 right-0 text-white hover:text-amber-400 text-xl font-bold transition">
+      <i class="fa-solid fa-xmark"></i> Tutup
+    </button>
+    <div id="fullAvatarContainer" class="rounded-2xl overflow-hidden shadow-2xl bg-slate-900 border border-white/10 flex items-center justify-center">
+      <!-- Image or Big Avatar text populated JS -->
     </div>
   </div>
 </div>
@@ -768,6 +789,7 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // User Session State
 let currentUser = null;
+let currentSelectedAvatarData = null; // Menyimpan temp Base64 foto yang dipilih dari galeri
 
 // Default Master Data Categories
 let defaultCategories = [
@@ -813,11 +835,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   initTheme();
   initSpeechRecognition();
 
-  // Cek Sesi Auth Supabase Saat Pertama Kali Dimuat
+  // SYSTEM AUTO-LOGIN: Cek Sesi Auth Supabase Saat Pertama Kali Dimuat
   const { data: { session } } = await supabaseClient.auth.getSession();
   handleAuthState(session);
 
-  // Pasang Listener Perubahan Sesi
+  // Pasang Listener Perubahan Sesi (Otomatis Menjaga Status Login)
   supabaseClient.auth.onAuthStateChange((_event, session) => {
     handleAuthState(session);
   });
@@ -954,7 +976,7 @@ function openProfileModal() {
   const currentAvatar = userMetaData.avatar_url || userMetaData.picture || '';
 
   document.getElementById('editDisplayName').value = currentName;
-  document.getElementById('editAvatarUrl').value = currentAvatar;
+  currentSelectedAvatarData = currentAvatar; // Inisialisasi dengan avatar saat ini
 
   const previewAvatar = document.getElementById('profileAvatarPreview');
   if (currentAvatar) {
@@ -970,12 +992,56 @@ function closeProfileModal() {
   document.getElementById('modalProfile').classList.add('hidden');
 }
 
+// Memicu klik pada input file galeri
+function triggerAvatarUpload() {
+  document.getElementById('editAvatarFile').click();
+}
+
+// Memproses foto dari galeri yang dipilih pengguna & mengubahnya ke Base64
+function handleAvatarFileSelect(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  if (file.size > 2 * 1024 * 1024) {
+    showToast('Ukuran foto terlalu besar! Pilih foto dibawah 2MB.');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    currentSelectedAvatarData = event.target.result;
+    const previewAvatar = document.getElementById('profileAvatarPreview');
+    previewAvatar.innerHTML = `<img src="${currentSelectedAvatarData}" alt="PP" class="w-full h-full object-cover">`;
+  };
+  reader.readAsDataURL(file);
+}
+
+// MENAMPILKAN KESELURUHAN GAMBAR AVATAR DENGAN RASIO SESUAI SAAT DIKLIK
+function openFullAvatarView() {
+  const modal = document.getElementById('modalFullAvatar');
+  const container = document.getElementById('fullAvatarContainer');
+  
+  if (currentSelectedAvatarData) {
+    container.innerHTML = `<img src="${currentSelectedAvatarData}" alt="Full Avatar" class="max-w-full max-h-[75vh] object-contain rounded-xl">`;
+  } else {
+    const userMetaData = currentUser ? (currentUser.user_metadata || {}) : {};
+    const name = userMetaData.full_name || userMetaData.name || (currentUser ? currentUser.email : 'U');
+    container.innerHTML = `<div class="w-48 h-48 sm:w-64 sm:h-64 bg-indigo-600 text-white font-extrabold text-6xl sm:text-7xl flex items-center justify-center uppercase rounded-2xl">${name.charAt(0)}</div>`;
+  }
+  
+  modal.classList.remove('hidden');
+}
+
+function closeFullAvatarView() {
+  document.getElementById('modalFullAvatar').classList.add('hidden');
+}
+
 async function handleUpdateProfile(e) {
   e.preventDefault();
   if (!currentUser) return;
 
   const newName = document.getElementById('editDisplayName').value.trim();
-  const newAvatarUrl = document.getElementById('editAvatarUrl').value.trim();
+  const newAvatarUrl = currentSelectedAvatarData || '';
   const btn = document.getElementById('btnSaveProfile');
 
   btn.disabled = true;
