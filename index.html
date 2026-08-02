@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta name="google-site-verification" content="r5AowmARJ34jedSLAmaXwdlloPTNkuyBwhyIhmDuKN0" />
+  <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+<script>eruda.init();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Studentfin - Manajemen Keuangan Pelajar</title>
@@ -29,7 +30,7 @@ tailwind.config = {
 <link rel="apple-touch-icon" href="./icon-192.png">
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!-- Font Awesome Icons -->
+<!-- Ikon Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <!-- SheetJS (XLSX) untuk Ekspor Excel Rapi -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
@@ -52,7 +53,7 @@ body {
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
 }
 
-/* --- PERBAIKAN & PENYESUAIAN WARNA HARMONIS: SEMI-DARK --- */
+/* --- PERBAIKAN & PENYESUAIAN WARNA HARMONIS : SEMI GELAP --- */
 body.theme-semidark {
   background-color: #0f172a;
   color: #f8fafc;
@@ -92,7 +93,7 @@ body.theme-semidark select {
   border-color: #334155 !important;
 }
 
-/* Kotak Analisis AI & Ringkasan Berwarna di Semi-Dark */
+/* Kotak Analisis AI & Ringkasan Warna di Semi-Dark */
 body.theme-semidark .bg-indigo-50\/70,
 body.theme-semidark .bg-indigo-50\/80 {
   background-color: #1e1b4b !important;
@@ -124,7 +125,7 @@ body.theme-semidark .text-rose-600 {
   color: #fb7185 !important;
 }
 
-/* --- PERBAIKAN & PENYESUAIAN WARNA HARMONIS: FULL DARK --- */
+/* --- PERBAIKAN & PENYESUAIAN WARNA HARMONIS : FULL GELAP --- */
 body.theme-dark {
   background-color: #0b0f19;
   color: #f3f4f6;
@@ -164,7 +165,7 @@ body.theme-dark select {
   border-color: #374151 !important;
 }
 
-/* Kotak Analisis AI & Ringkasan Berwarna di Full Dark */
+/* Kotak Analisis AI & Ringkasan Warna di Full Dark */
 body.theme-dark .bg-indigo-50\/70,
 body.theme-dark .bg-indigo-50\/80 {
   background-color: #1e1b4b !important;
@@ -199,7 +200,7 @@ body.theme-dark .text-rose-600 {
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col pb-12 transition-colors duration-300">
 
-<!-- SECTION AUTH (LOGIN & REGISTER) -->
+<!-- BAGIAN OTORISASI (LOGIN & REGISTER) -->
 <section id="authSection" class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white w-full">
   <div class="bg-white/10 backdrop-blur-xl border border-white/10 p-6 sm:p-8 rounded-3xl max-w-md w-full shadow-2xl space-y-6">
     <div class="text-center space-y-2">
@@ -210,13 +211,13 @@ body.theme-dark .text-rose-600 {
       <p class="text-xs text-indigo-200/80">Kelola keuangan sekolahmu dengan cerdas & tertata</p>
     </div>
 
-    <!-- Toggle Tab Auth -->
+    <!-- Alihkan Otentikasi Tab -->
     <div class="grid grid-cols-2 gap-1 bg-slate-900/60 p-1 rounded-2xl border border-white/5 text-xs font-bold">
       <button id="tabLogin" onclick="switchAuthTab('login')" class="py-2.5 rounded-xl bg-indigo-600 text-white transition-all duration-300">Masuk</button>
       <button id="tabRegister" onclick="switchAuthTab('register')" class="py-2.5 rounded-xl text-slate-400 hover:text-white transition-all duration-300">Daftar Baru</button>
     </div>
 
-    <!-- Form Login -->
+    <!-- Formulir Login -->
     <form id="formLogin" onsubmit="handleLogin(event)" class="space-y-4">
       <div>
         <label class="block text-xs font-bold text-indigo-200 mb-1.5">Email Pelajar</label>
@@ -237,7 +238,7 @@ body.theme-dark .text-rose-600 {
       </button>
     </form>
 
-    <!-- Form Register -->
+    <!-- Formulir Pendaftaran -->
     <form id="formRegister" onsubmit="handleRegister(event)" class="space-y-4 hidden">
       <div>
         <label class="block text-xs font-bold text-indigo-200 mb-1.5">Email Pelajar</label>
@@ -260,39 +261,39 @@ body.theme-dark .text-rose-600 {
   </div>
 </section>
 
-<!-- MAIN APP CONTAINER (Dihide secara default sampai user Terautentikasi) -->
+<!-- MAIN APP CONTAINER (Dihide secara default sampai pengguna Terautentikasi) -->
 <div id="appContainer" class="hidden flex-col min-h-screen">
 
-<!-- Header Navigation dengan Profil di Kiri menggantikan Ikon Dompet -->
+<!-- Navigasi Header dengan Profil di Kiri menggantikan Ikon Dompet -->
 <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white sticky top-0 z-30 backdrop-blur-md bg-opacity-95 shadow-md border-b border-indigo-500/20">
   <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center w-full gap-2">
-    <!-- Profil Pengguna & Judul Web (Bisa Diklik untuk Buka Modal Profil) -->
-    <button onclick="openProfileModal()" class="flex items-center space-x-3 shrink-0 text-left hover:opacity-90 transition focus:outline-none group" title="Pengaturan Profil">
-      <!-- Foto Profil User (Pojok Kiri) -->
-      <div id="userAvatarIcon" class="w-10 h-10 rounded-full bg-indigo-600 text-white font-extrabold text-base flex items-center justify-center uppercase border-2 border-indigo-400/50 shadow-md shrink-0 overflow-hidden group-hover:scale-105 transition-transform">
+    <!-- Profil Pengguna & Judul Web -->
+    <div class="flex items-center space-x-3 shrink-0">
+      <!-- Foto Profil Pengguna (Pojok Kiri) -->
+      <div id="userAvatarIcon" class="w-10 h-10 rounded-full bg-indigo-600 text-white font-extrabold text-base flex items-center justify-center uppercase border-2 border-indigo-400/50 shadow-md shrink-0 overflow-hidden">
         U
       </div>
       <div>
         <h1 class="font-extrabold text-base leading-tight tracking-tight flex items-center">
-          Studentfin 
+          Keuangan Mahasiswa
           <span class="text-amber-300 text-[10px] px-1.5 py-0.5 bg-indigo-900/80 rounded-full font-bold ml-1.5 border border-indigo-400/30">Cerdas</span>
         </h1>
         <!-- Nama/Email Pengguna di Bawah Judul -->
-        <p id="userDisplayEmail" class="text-[11px] text-indigo-200 font-semibold max-w-[150px] sm:max-w-[220px] truncate leading-tight group-hover:text-amber-300 transition-colors">
+        <p id="userDisplayEmail" class="text-[11px] text-indigo-200 font-semibold max-w-[150px] sm:max-w-[220px] truncate leading-tight">
           user@email.com
         </p>
       </div>
-    </button>
+    </div>
 
-    <!-- Right Header Controls -->
+    <!-- Kontrol Header Kanan -->
     <div class="flex items-center gap-2 min-w-0">
-      <!-- Tombol Logout -->
+      <!-- Tombol Keluar -->
       <button onclick="handleLogout()" title="Keluar Akun" class="bg-slate-800/80 hover:bg-rose-500/30 text-rose-300 p-2 rounded-2xl border border-slate-700 text-xs backdrop-blur-sm transition shrink-0 flex items-center gap-1.5 font-bold">
         <i class="fa-solid fa-right-from-bracket text-xs"></i>
         <span class="hidden sm:inline text-xs">Keluar</span>
       </button>
 
-      <!-- Theme Selector Panel Dropdown -->
+      <!-- Menu tarik-turun Panel Pemilih Tema -->
       <div class="relative shrink-0">
         <button id="themeDropdownBtn" onclick="toggleThemeMenu()" class="bg-slate-800/80 hover:bg-slate-800 p-2 px-3 rounded-2xl border border-slate-700 text-xs backdrop-blur-sm flex items-center gap-2 transition-all">
           <span id="currentThemeIcon"><i class="fa-solid fa-sun text-amber-400"></i></span>
@@ -309,7 +310,7 @@ body.theme-dark .text-rose-600 {
             <i class="fa-solid fa-cloud-moon text-blue-400 w-4"></i> Semi Gelap
           </button>
           <button onclick="setTheme('dark'); toggleThemeMenu();" class="w-full px-3.5 py-2 text-left text-xs font-semibold text-slate-700 hover:bg-indigo-50 flex items-center gap-2 transition">
-            <i class="fa-solid fa-moon text-indigo-400 w-4"></i> Gelap
+            <i class="fa-solid fa-moon text-indigo-300 w-4"></i> Gelap
           </button>
         </div>
       </div>
@@ -317,10 +318,10 @@ body.theme-dark .text-rose-600 {
   </div>
 </header>
 
-<!-- Main Container -->
+<!-- Kontainer Utama -->
 <main class="max-w-5xl mx-auto px-4 mt-6 flex-1 w-full space-y-6">
 
-  <!-- Voice Note Bar -->
+  <!-- Bilah Catatan Suara -->
   <div class="bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-900 rounded-3xl p-4 text-white shadow-md flex items-center justify-between gap-3 backdrop-blur-xl border border-indigo-500/30">
     <div class="flex items-center gap-3.5">
       <button id="btnVoice" onclick="toggleVoiceRecognition()" class="bg-rose-500 hover:bg-rose-600 text-white p-3 rounded-2xl shadow-md transition-all duration-300 hover:-translate-y-0.5 active:scale-95 flex items-center justify-center w-11 h-11 shrink-0">
@@ -328,7 +329,7 @@ body.theme-dark .text-rose-600 {
       </button>
       <div>
         <div class="flex items-center gap-2">
-          <span class="font-bold text-xs tracking-wide">Catat Suara AI</span>
+          <span class="font-bold text-xs tracking-wide">Kata Suara AI</span>
           <span id="voiceStatus" class="text-[10px] bg-indigo-950/80 border border-indigo-500/30 px-2.5 py-0.5 rounded-full text-indigo-200 font-medium">Klik Mic</span>
         </div>
         <p class="text-[11px] text-indigo-200/80 hidden sm:block mt-0.5">Contoh: <span class="italic font-mono bg-slate-950/60 px-2 py-0.5 rounded-lg text-amber-300 border border-indigo-500/20">"Makan siang 15 ribu"</span></p>
@@ -357,7 +358,7 @@ body.theme-dark .text-rose-600 {
 
     <!-- Pemasukan vs Pengeluaran Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-slate-100 pt-4">
-      <!-- Pemasukan Box -->
+      <!-- Kotak Masukan -->
       <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100/80 flex items-center justify-between">
         <div class="space-y-0.5">
           <span class="text-[11px] font-bold text-emerald-800 uppercase tracking-wider block">Total Pemasukan</span>
@@ -376,7 +377,7 @@ body.theme-dark .text-rose-600 {
           <h3 id="txtTotalPengeluaran" class="text-xl font-extrabold text-rose-500 tracking-tight">Rp 0</h3>
           <div class="flex items-center gap-2 text-[10px] font-semibold text-rose-800">
             <span>Wajib: <b id="txtWajibTotal" class="font-extrabold">Rp 0</b></span>
-            <span>•</span>
+            •
             <span>Non-Wajib: <b id="txtNonWajibTotal" class="font-extrabold">Rp 0</b></span>
           </div>
         </div>
@@ -387,10 +388,10 @@ body.theme-dark .text-rose-600 {
     </div>
   </div>
 
-  <!-- Section: Tambah Transaksi & Target Non-Wajib -->
+  <!-- Bagian: Tambah Transaksi & Target Non-Wajib -->
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-    <!-- Form Input Manual -->
+    <!-- Manual Input Formulir -->
     <div class="bg-white p-6 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 border border-slate-100 lg:col-span-1">
       <div class="flex justify-between items-center mb-5">
         <h3 class="font-bold text-slate-800 flex items-center gap-2 text-sm">
@@ -432,7 +433,7 @@ body.theme-dark .text-rose-600 {
         <div>
           <label class="block text-xs font-bold text-slate-600 mb-1.5">Kategori</label>
           <select id="txCategory" required class="w-full px-3.5 py-2.5 text-xs rounded-2xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition bg-white">
-            <!-- Populated via JS -->
+            <!-- Diisi melalui JS -->
           </select>
         </div>
 
@@ -460,21 +461,21 @@ body.theme-dark .text-rose-600 {
             <h3 class="font-bold text-slate-800 flex items-center gap-2 text-sm">
               <i class="fa-solid fa-bullseye text-indigo-500"></i> Target Non-Wajib & Tabungan
             </h3>
-            <p class="text-xs text-slate-400 font-medium mt-0.5">Pantau kemajuan tabungan kegiatan sekolah kamu</p>
+            <p class="text-xs text-slate-400 font-medium mt-0.5">Pantau target tabungan kegiatan sekolah kamu</p>
           </div>
           <button onclick="openAddGoalModal()" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3 py-2 rounded-xl border border-indigo-500/30 transition-all duration-300 hover:-translate-y-0.5 shadow-sm">
-            <i class="fa-solid fa-plus mr-1"></i> Target Baru
+            Target Baru
           </button>
         </div>
 
         <div id="goalsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <!-- Rendered JS -->
+          <!-- JavaScript yang dirender -->
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Section: Filter Tanggal & Laporan Analisis -->
+  <!-- Bagian: Filter Tanggal & Laporan Analisis -->
   <div class="bg-white p-6 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 border border-slate-100">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-slate-100">
       <div>
@@ -484,7 +485,7 @@ body.theme-dark .text-rose-600 {
         <p class="text-xs text-slate-400 font-medium mt-0.5">Pilih rentang tanggal untuk melihat statistik & ekspor laporan</p>
       </div>
 
-      <!-- Filter Form & Ekspor Excel -->
+      <!-- Filter Formulir & Ekspor Excel -->
       <div class="flex flex-wrap items-center gap-2.5">
         <div class="flex items-center gap-1.5 text-xs bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
           <span class="text-slate-500 font-semibold">Dari:</span>
@@ -495,15 +496,15 @@ body.theme-dark .text-rose-600 {
           <input type="date" id="filterEndDate" class="bg-transparent text-xs focus:outline-none font-medium text-slate-700">
         </div>
         <button onclick="applyDateFilter()" class="bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all duration-300 shadow-sm">
-          Filter
+          Saring
         </button>
         <button onclick="exportToExcelXLSX()" class="bg-emerald-600 hover:bg-emerald-700 text-white p-2.5 rounded-xl shadow-sm transition-all duration-300 hover:-translate-y-0.5 flex items-center justify-center gap-1.5 text-xs font-bold" title="Ekspor Laporan Excel XLSX">
-          <i class="fa-solid fa-file-excel text-sm"></i> Ekspor Excel
+          Ekspor Excel
         </button>
       </div>
     </div>
 
-    <!-- Dual Chart & Legenda Terstruktur -->
+    <!-- Bagan Ganda & Legenda Terstruktur -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 items-start">
       <!-- Diagram Pengeluaran -->
       <div class="flex flex-col items-center bg-slate-50/50 p-4 rounded-2xl border border-slate-100 w-full">
@@ -512,7 +513,7 @@ body.theme-dark .text-rose-600 {
           <canvas id="categoryChart"></canvas>
         </div>
         <div id="expenseLegend" class="w-full text-xs space-y-1.5 border-t border-slate-200/60 pt-3 max-h-40 overflow-y-auto pr-1">
-          <!-- Legend rendered JS -->
+          <!-- Legenda dirender oleh JS -->
         </div>
       </div>
 
@@ -523,7 +524,7 @@ body.theme-dark .text-rose-600 {
           <canvas id="incomeChart"></canvas>
         </div>
         <div id="incomeLegend" class="w-full text-xs space-y-1.5 border-t border-slate-200/60 pt-3 max-h-40 overflow-y-auto pr-1">
-          <!-- Legend rendered JS -->
+          <!-- Legenda dirender oleh JS -->
         </div>
       </div>
 
@@ -560,7 +561,7 @@ body.theme-dark .text-rose-600 {
     </div>
   </div>
 
-  <!-- Section: Riwayat Transaksi (Mobile-First Card View) -->
+  <!-- Bagian: Riwayat Transaksi (Tampilan Kartu Mobile-First) -->
   <div class="bg-white p-6 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 border border-slate-100 space-y-5">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
       <h3 class="font-bold text-slate-800 flex items-center gap-2 text-sm">
@@ -579,17 +580,17 @@ body.theme-dark .text-rose-600 {
       </div>
 
       <button onclick="resetHistoryFilter()" class="px-3 py-1.5 text-slate-600 bg-slate-200/80 hover:bg-slate-300 rounded-xl font-bold transition shadow-sm flex items-center gap-1.5">
-        <i class="fa-solid fa-rotate-left text-xs"></i> Reset Filter
+        <i class="fa-solid fa-rotate-left text-xs"></i> Atur Ulang Filter
       </button>
     </div>
 
-    <!-- Container Daftar Transaksi Card View -->
+    <!-- Tampilan Kartu Daftar Transaksi -->
     <div id="transactionListContainer" class="space-y-3 max-h-[480px] overflow-y-auto pr-1">
-      <!-- Rendered JS -->
+      <!-- JavaScript yang dirender -->
     </div>
   </div>
 
-  <!-- Section: Kelola Cadangan Data (JSON) -->
+  <!-- Bagian: Kelola Cadangan Data (JSON) -->
   <div class="bg-white p-6 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 border border-slate-100">
     <h3 class="font-bold text-slate-800 flex items-center gap-2 mb-2 text-sm">
       <i class="fa-solid fa-box-archive text-indigo-500"></i> Kelola Cadangan Data (JSON)
@@ -611,79 +612,7 @@ body.theme-dark .text-rose-600 {
 </main>
 </div>
 
-<!-- Modal Setting Profil & Delete User -->
-<div id="modalProfile" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md hidden z-50 flex items-center justify-center p-4 transition-all">
-  <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative space-y-5 border border-slate-100">
-    <button onclick="closeProfileModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 transition">
-      <i class="fa-solid fa-xmark text-lg"></i>
-    </button>
-    <h3 class="text-base font-extrabold text-slate-800 flex items-center gap-2">
-      <i class="fa-solid fa-user-gear text-indigo-500"></i> Pengaturan Profil Pengguna
-    </h3>
-
-    <!-- Form Update Profil -->
-    <form id="formProfile" onsubmit="handleUpdateProfile(event)" class="space-y-4">
-      <!-- Avatar Preview dengan Tombol Ubah di Samping Kanan Bawah Luar Ring -->
-      <div class="flex flex-col items-center justify-center space-y-2">
-        <div class="relative inline-block">
-          <!-- Lingkaran Avatar Utama -->
-          <div onclick="openFullAvatarView()" class="w-24 h-24 rounded-full bg-indigo-600 text-white font-extrabold text-3xl flex items-center justify-center uppercase border-4 border-indigo-100 shadow-lg cursor-pointer overflow-hidden transition-all hover:scale-105" title="Klik untuk lihat gambar penuh">
-            <div id="profileAvatarPreview" class="w-full h-full flex items-center justify-center uppercase">
-              U
-            </div>
-          </div>
-          
-          <!-- Tombol Ubah Foto (Ukuran Lebih Kecil & Berada di Samping Kanan Bawah Luar) -->
-          <button type="button" onclick="triggerAvatarUpload()" class="absolute bottom-0 -right-1 z-10 w-8 h-8 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white border-2 border-white flex items-center justify-center shadow-md transition-transform active:scale-95" title="Ubah Foto Profil">
-            <i class="fa-solid fa-camera text-xs"></i>
-          </button>
-        </div>
-        
-        <!-- Hidden File Input untuk Pilih dari Galeri/Penyimpanan -->
-        <input type="file" id="editAvatarFile" accept="image/*" onchange="handleAvatarFileSelect(event)" class="hidden">
-        <span class="text-[10px] text-slate-400 font-medium">Klik avatar untuk memperbesar • Klik ikon kamera untuk memilih foto</span>
-      </div>
-
-      <div>
-        <label class="block text-xs font-bold text-slate-700 mb-1.5">Nama Pengguna</label>
-        <input type="text" id="editDisplayName" placeholder="Masukkan nama Anda" required class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition font-medium">
-      </div>
-
-      <button type="submit" id="btnSaveProfile" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold py-2.5 rounded-xl shadow-sm transition">
-        <i class="fa-solid fa-floppy-disk mr-1"></i> Simpan Perubahan Profil
-      </button>
-    </form>
-
-    <hr class="border-slate-200">
-
-    <!-- Fitur Hapus Akun Permanen (Delete User) di Paling Bawah -->
-    <div class="bg-rose-50/80 p-4 rounded-2xl border border-rose-200 space-y-2">
-      <h4 class="text-xs font-extrabold text-rose-800 flex items-center gap-1.5">
-        <i class="fa-solid fa-triangle-exclamation text-rose-600"></i> Zona Bahaya: Hapus Akun
-      </h4>
-      <p class="text-[11px] text-rose-700/80 leading-relaxed font-medium">
-        Menghapus akun akan menghapus seluruh data transaksi Supabase Anda secara permanen. Anda harus mendaftar lagi jika ingin menggunakan aplikasi ini kembali.
-      </p>
-      <button type="button" onclick="handleDeleteUser()" id="btnDeleteUser" class="w-full mt-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold py-2.5 rounded-xl shadow-sm transition">
-        <i class="fa-solid fa-trash-can mr-1"></i> Hapus Akun & Data Permanen
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Fullview Avatar Gambar Utuh -->
-<div id="modalFullAvatar" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex flex-col items-center justify-center p-4 transition-all" onclick="closeFullAvatarView()">
-  <div class="relative max-w-lg max-h-[85vh] p-2 flex flex-col items-center" onclick="event.stopPropagation()">
-    <button onclick="closeFullAvatarView()" class="absolute -top-10 right-0 text-white hover:text-amber-400 text-xl font-bold transition">
-      <i class="fa-solid fa-xmark"></i> Tutup
-    </button>
-    <div id="fullAvatarContainer" class="rounded-2xl overflow-hidden shadow-2xl bg-slate-900 border border-white/10 flex items-center justify-center">
-      <!-- Image or Big Avatar text populated JS -->
-    </div>
-  </div>
-</div>
-
-<!-- Modal Auto Routine Wajib Sekolah -->
+<!-- Modal Auto Rutin Wajib Sekolah -->
 <div id="modalAutoWajib" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md hidden z-50 flex items-center justify-center p-4 transition-all">
   <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative space-y-4 border border-slate-100">
     <button onclick="closeAutoWajibModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 transition">
@@ -712,7 +641,7 @@ body.theme-dark .text-rose-600 {
 
     <div class="flex justify-end gap-2.5 pt-2">
       <button onclick="closeAutoWajibModal()" class="px-4 py-2.5 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl transition">Batal</button>
-      <button onclick="generateWajibExpenses()" class="px-4 py-2.5 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm transition">Generate Catatan</button>
+      <button onclick="generateWajibExpenses()" class="px-4 py-2.5 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm transition">Buat Catatan</button>
     </div>
   </div>
 </div>
@@ -739,7 +668,7 @@ body.theme-dark .text-rose-600 {
       </div>
 
       <div class="max-h-60 overflow-y-auto space-y-2.5 pt-2" id="categoryListContainer">
-        <!-- Rendered JS -->
+        <!-- JavaScript yang dirender -->
       </div>
     </div>
   </div>
@@ -774,31 +703,30 @@ body.theme-dark .text-rose-600 {
   </div>
 </div>
 
-<!-- Toast Notification Box -->
+<!-- Kotak Notifikasi Toast -->
 <div id="toast" class="fixed bottom-5 right-5 bg-slate-900/95 backdrop-blur-md text-white px-4.5 py-3 rounded-2xl shadow-2xl text-xs flex items-center gap-2.5 transition-all transform translate-y-20 opacity-0 z-50 border border-white/10 font-medium">
   <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
-  <span id="toastMsg">Pesan Notifikasi</span>
+  <span id="toastMsg">Pemberitahuan Pesan</span>
 </div>
 
-<!-- Application Script -->
+<!-- Skrip Aplikasi -->
 <script>
 // --- KONFIGURASI SUPABASE ---
 const SUPABASE_URL = 'https://muwglngmplnfsukbkryi.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im11d2dsbmdtcGxuZnN1a2JrcnlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUwNjMwMzUsImV4cCI6MjEwMDYzOTAzNX0.T7rfHBZyawQRto57-n3GybIEho-_7xtVOyr42ONtKd8';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// User Session State
+// Status Sesi Pengguna
 let currentUser = null;
-let currentSelectedAvatarData = null; // Menyimpan temp Base64 foto yang dipilih dari galeri
 
-// Default Master Data Categories
+// Kategori Data Master Default
 let defaultCategories = [
   { id: 'c1', name: 'Kas Sekolah', type: 'pengeluaran_wajib' },
   { id: 'c2', name: 'Parkir Motor', type: 'pengeluaran_wajib' },
-  { id: 'c3', name: 'Yearbook', type: 'pengeluaran_non_wajib' },
+  { id: 'c3', name: 'Buku Tahunan', type: 'pengeluaran_non_wajib' },
   { id: 'c4', name: 'Tabungan Harian', type: 'pengeluaran_non_wajib' },
   { id: 'c5', name: 'Nge Vila', type: 'pengeluaran_non_wajib' },
-  { id: 'c6', name: 'AC Class', type: 'pengeluaran_non_wajib' },
+  { id: 'c6', name: 'Kelas AC', type: 'pengeluaran_non_wajib' },
   { id: 'c7', name: 'Makanan', type: 'pengeluaran_non_wajib' },
   { id: 'c8', name: 'Minuman', type: 'pengeluaran_non_wajib' },
   { id: 'c9', name: 'Lain-lain', type: 'pengeluaran_non_wajib' },
@@ -806,14 +734,14 @@ let defaultCategories = [
   { id: 'c11', name: 'Gaji/Bonus', type: 'pemasukan' }
 ];
 
-// Default Goals
+// Tujuan Default
 let defaultGoals = [
-  { id: 'g1', title: 'Yearbook', target: 350000, categoryName: 'Yearbook' },
+  { id: 'g1', title: 'Buku Tahunan', target: 350000, categoryName: 'Buku Tahunan' },
   { id: 'g2', title: 'Nge Vila', target: 300000, categoryName: 'Nge Vila' },
-  { id: 'g3', title: 'AC Class', target: 100000, categoryName: 'AC Class' }
+  { id: 'g3', title: 'Kelas AC', target: 100000, categoryName: 'Kelas AC' }
 ];
 
-// State Storage
+// Penyimpanan Status
 let categories = JSON.parse(localStorage.getItem('kp_categories')) || defaultCategories;
 let transactions = [];
 let goals = JSON.parse(localStorage.getItem('kp_goals')) || defaultGoals;
@@ -824,22 +752,22 @@ let incChartInstance = null;
 let isListening = false;
 let recognition = null;
 
-// Palette Warna Chart
+// Bagan Palet Warna
 const chartColors = [
-  '#6366f1', '#ec4899', '#14b8a6', '#f59e0b', '#8b5cf6', 
+  '#6366f1', '#ec4899', '#14b8a6', '#f59e0b', '#8b5cf6',
   '#06b6d4', '#10b981', '#f43f5e', '#3b82f6', '#84cc16'
 ];
 
-// Initialize App & Auth Listener on DOM Ready
+// Inisialisasi App & Auth Listener saat DOM Ready
 document.addEventListener('DOMContentLoaded', async () => {
   initTheme();
   initSpeechRecognition();
 
-  // SYSTEM AUTO-LOGIN: Cek Sesi Auth Supabase Saat Pertama Kali Dimuat
+  // Cek Sesi Auth Supabase Saat Pertama Kali Dimuat
   const { data: { session } } = await supabaseClient.auth.getSession();
   handleAuthState(session);
 
-  // Pasang Listener Perubahan Sesi (Otomatis Menjaga Status Login)
+  // Pasang Pendengar Perubahan Sesi
   supabaseClient.auth.onAuthStateChange((_event, session) => {
     handleAuthState(session);
   });
@@ -968,168 +896,6 @@ async function handleLogout() {
   }
 }
 
-// FUNGSI PENGATURAN PROFIL & HAPUS USER (PERMANEN)
-function openProfileModal() {
-  if (!currentUser) return;
-  const userMetaData = currentUser.user_metadata || {};
-  const currentName = userMetaData.full_name || userMetaData.name || currentUser.email || '';
-  const currentAvatar = userMetaData.avatar_url || userMetaData.picture || '';
-
-  document.getElementById('editDisplayName').value = currentName;
-  currentSelectedAvatarData = currentAvatar; // Inisialisasi dengan avatar saat ini
-
-  const previewAvatar = document.getElementById('profileAvatarPreview');
-  if (currentAvatar) {
-    previewAvatar.innerHTML = `<img src="${currentAvatar}" alt="PP" class="w-full h-full object-cover">`;
-  } else {
-    previewAvatar.textContent = (currentName || 'U').charAt(0).toUpperCase();
-  }
-
-  document.getElementById('modalProfile').classList.remove('hidden');
-}
-
-function closeProfileModal() {
-  document.getElementById('modalProfile').classList.add('hidden');
-}
-
-// Memicu klik pada input file galeri
-function triggerAvatarUpload() {
-  document.getElementById('editAvatarFile').click();
-}
-
-// Memproses foto dari galeri yang dipilih pengguna & mengubahnya ke Base64
-function handleAvatarFileSelect(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  if (file.size > 2 * 1024 * 1024) {
-    showToast('Ukuran foto terlalu besar! Pilih foto dibawah 2MB.');
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = function(event) {
-    currentSelectedAvatarData = event.target.result;
-    const previewAvatar = document.getElementById('profileAvatarPreview');
-    previewAvatar.innerHTML = `<img src="${currentSelectedAvatarData}" alt="PP" class="w-full h-full object-cover">`;
-  };
-  reader.readAsDataURL(file);
-}
-
-// MENAMPILKAN KESELURUHAN GAMBAR AVATAR DENGAN RASIO SESUAI SAAT DIKLIK
-function openFullAvatarView() {
-  const modal = document.getElementById('modalFullAvatar');
-  const container = document.getElementById('fullAvatarContainer');
-  
-  if (currentSelectedAvatarData) {
-    container.innerHTML = `<img src="${currentSelectedAvatarData}" alt="Full Avatar" class="max-w-full max-h-[75vh] object-contain rounded-xl">`;
-  } else {
-    const userMetaData = currentUser ? (currentUser.user_metadata || {}) : {};
-    const name = userMetaData.full_name || userMetaData.name || (currentUser ? currentUser.email : 'U');
-    container.innerHTML = `<div class="w-48 h-48 sm:w-64 sm:h-64 bg-indigo-600 text-white font-extrabold text-6xl sm:text-7xl flex items-center justify-center uppercase rounded-2xl">${name.charAt(0)}</div>`;
-  }
-  
-  modal.classList.remove('hidden');
-}
-
-function closeFullAvatarView() {
-  document.getElementById('modalFullAvatar').classList.add('hidden');
-}
-
-async function handleUpdateProfile(e) {
-  e.preventDefault();
-  if (!currentUser) return;
-
-  const newName = document.getElementById('editDisplayName').value.trim();
-  const newAvatarUrl = currentSelectedAvatarData || '';
-  const btn = document.getElementById('btnSaveProfile');
-
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Menyimpan...';
-
-  const { data, error } = await supabaseClient.auth.updateUser({
-    data: {
-      full_name: newName,
-      avatar_url: newAvatarUrl
-    }
-  });
-
-  btn.disabled = false;
-  btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-1"></i> Simpan Perubahan Profil';
-
-  if (error) {
-    showToast(`Gagal update profil: ${error.message}`);
-  } else {
-    currentUser = data.user;
-    showToast('Profil berhasil diperbarui!');
-    
-    // Refresh Tampilan Header
-    const nameEl = document.getElementById('userDisplayEmail');
-    if (nameEl) nameEl.textContent = newName || currentUser.email;
-
-    const avatarEl = document.getElementById('userAvatarIcon');
-    if (avatarEl) {
-      if (newAvatarUrl) {
-        avatarEl.innerHTML = `<img src="${newAvatarUrl}" alt="PP" class="w-full h-full object-cover">`;
-      } else {
-        avatarEl.textContent = (newName || currentUser.email).charAt(0).toUpperCase();
-      }
-    }
-
-    closeProfileModal();
-  }
-}
-
-async function handleDeleteUser() {
-  if (!currentUser) return;
-
-  const confirm1 = confirm('⚠️ APABILA ANDA MENGHAPUS AKUN:\n- Seluruh transaksi di database Supabase akan terhapus bersih.\n- Akun Anda akan hilang dan harus DAFTAR LAGI jika ingin masuk.\n\nYakin ingin melanjutkan?');
-  if (!confirm1) return;
-
-  const confirm2 = prompt('Ketik "HAPUS AKUN" (tanpa tanda kutip) untuk mengonfirmasi penghapusan permanen:');
-  if (confirm2 !== 'HAPUS AKUN') {
-    showToast('Penghapusan akun dibatalkan.');
-    return;
-  }
-
-  const btn = document.getElementById('btnDeleteUser');
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Menghapus Akun...';
-
-  try {
-    // 1. Hapus seluruh data transaksi milik user ini di Supabase
-    const { error: deleteTxError } = await supabaseClient
-      .from('transactions')
-      .delete()
-      .eq('user_id', currentUser.id);
-
-    if (deleteTxError) {
-      console.error('Gagal menghapus transaksi:', deleteTxError);
-    }
-
-    // 2. Tandai user terhapus di Metadata & Logout
-    await supabaseClient.auth.updateUser({
-      data: { is_deleted: true, deleted_at: new Date().toISOString() }
-    });
-
-    // 3. Clear Local Storage
-    localStorage.removeItem('kp_categories');
-    localStorage.removeItem('kp_goals');
-
-    // 4. Logout User dari Supabase Session
-    await supabaseClient.auth.signOut();
-
-    closeProfileModal();
-    showToast('Akun Anda telah berhasil dihapus. Silakan mendaftar ulang jika ingin kembali.');
-  } catch (err) {
-    console.error(err);
-    showToast('Terjadi kesalahan saat menghapus akun.');
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fa-solid fa-trash-can mr-1"></i> Hapus Akun & Data Permanen';
-  }
-}
-
 // FUNGSI TEMA DROPDOWN & STYLING
 function toggleThemeMenu() {
   const menu = document.getElementById('themeMenu');
@@ -1211,7 +977,7 @@ async function fetchTransactions() {
       id: t.id,
       date: t.date,
       type: t.type,
-      categoryType: t.category_type,
+      categoryType: t.category_type || t.categoryType,
       category: t.category,
       amount: parseFloat(t.amount),
       note: t.note
@@ -1242,11 +1008,11 @@ function setType(type) {
   if (type === 'pengeluaran') {
     btnExpense.className = "py-2.5 text-xs font-bold rounded-2xl border bg-rose-500/15 border-rose-500/30 text-rose-500 flex items-center justify-center gap-1.5 transition-all shadow-sm";
     btnIncome.className = "py-2.5 text-xs font-semibold rounded-2xl border border-slate-200 text-slate-600 flex items-center justify-center gap-1.5 transition-all";
-    if(autoRoutineBox) autoRoutineBox.classList.remove('hidden');
+    if (autoRoutineBox) autoRoutineBox.classList.remove('hidden');
   } else {
     btnIncome.className = "py-2.5 text-xs font-bold rounded-2xl border bg-emerald-500/15 border-emerald-500/30 text-emerald-500 flex items-center justify-center gap-1.5 transition-all shadow-sm";
     btnExpense.className = "py-2.5 text-xs font-semibold rounded-2xl border border-slate-200 text-slate-600 flex items-center justify-center gap-1.5 transition-all";
-    if(autoRoutineBox) autoRoutineBox.classList.add('hidden');
+    if (autoRoutineBox) autoRoutineBox.classList.add('hidden');
   }
   populateCategoryDropdown();
 }
@@ -1269,8 +1035,8 @@ function populateCategoryDropdown() {
 }
 
 async function addTransaction(e) {
-  if(e) e.preventDefault();
-  if(!currentUser) {
+  if (e) e.preventDefault();
+  if (!currentUser) {
     showToast('Sesi berakhir. Silakan login kembali.');
     return;
   }
@@ -1298,8 +1064,8 @@ async function addTransaction(e) {
   const { error } = await supabaseClient.from('transactions').insert([newTx]);
 
   if (error) {
-    console.error(error);
-    showToast('Gagal menyimpan transaksi!');
+    console.error('Detail Error Supabase:', error);
+    showToast(`Gagal menyimpan transaksi: ${error.message || 'Error Supabase'}`);
   } else {
     document.getElementById('txAmount').value = '';
     document.getElementById('txNote').value = '';
@@ -1322,9 +1088,9 @@ async function deleteTransaction(id) {
     .eq('user_id', currentUser.id);
 
   if (error) {
-    showToast('Gagal menghapus transaksi');
+    showToast('Gagal Menghapus Transaksi');
   } else {
-    showToast('Transaksi dihapus');
+    showToast('Transaksi Dihapus');
     fetchTransactions();
   }
 }
@@ -1537,7 +1303,7 @@ function renderTransactions() {
   if (displayList.length === 0) {
     container.innerHTML = `
       <div class="text-center py-8 text-slate-400 italic bg-slate-50/50 rounded-2xl border border-slate-100">
-        Belum ada riwayat transaksi recorded.
+        Belum ada riwayat transaksi yang tercatat.
       </div>
     `;
     return;
@@ -1559,15 +1325,15 @@ function renderTransactions() {
         <div class="space-y-1">
           <div class="flex items-center gap-2 flex-wrap">
             <span class="font-bold text-xs text-slate-800">${t.category}</span>
-            ${isInc ? 
-              `<span class="px-2 py-0.5 text-[10px] rounded-md font-extrabold bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">Pemasukan</span>` : 
+            ${isInc ?
+              `<span class="px-2 py-0.5 text-[10px] rounded-md font-extrabold bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">Pemasukan</span>` :
               `<span class="px-2 py-0.5 text-[10px] rounded-md font-extrabold ${isWajib ? 'bg-amber-500/20 text-amber-600 dark:text-amber-400' : 'bg-blue-500/20 text-blue-600 dark:text-blue-400'}">${isWajib ? 'Wajib' : 'Non-Wajib'}</span>`
             }
           </div>
           <p class="text-[11px] text-slate-500 font-medium">${displayNote}</p>
           <div class="flex items-center gap-2 text-[10px] text-slate-400 font-semibold">
             <span><i class="fa-regular fa-calendar mr-1"></i>${formatDate(t.date)}</span>
-            <span>•</span>
+            •
             <span class="text-indigo-400 font-bold">Saldo: ${formatRupiah(t.balanceAfter)}</span>
           </div>
         </div>
@@ -1588,7 +1354,7 @@ function renderTransactions() {
 
 function exportToExcelXLSX() {
   if (transactions.length === 0) {
-    showToast('Tidak ada data transaksi untuk diekspor');
+    showToast('Tidak ada data transaksi untuk ekspor');
     return;
   }
 
@@ -1621,12 +1387,12 @@ function exportToExcelXLSX() {
   
   worksheet['!cols'] = [
     { wch: 6 },  
-    { wch: 14 }, 
-    { wch: 16 }, 
-    { wch: 22 }, 
-    { wch: 18 }, 
-    { wch: 18 }, 
-    { wch: 20 }, 
+    { wch: 14 },
+    { wch: 16 },
+    { wch: 22 },
+    { wch: 18 },
+    { wch: 18 },
+    { wch: 20 },
     { wch: 32 }  
   ];
 
@@ -1654,7 +1420,7 @@ function closeAutoWajibModal() {
 }
 
 async function generateWajibExpenses() {
-  if(!currentUser) return;
+  if (!currentUser) return;
   const weekStart = document.getElementById('autoWeekStart').value;
   const holidays = parseInt(document.getElementById('autoHolidays').value) || 0;
 
@@ -1676,7 +1442,7 @@ async function generateWajibExpenses() {
       category_type: 'pengeluaran_wajib',
       category: 'Kas Sekolah',
       amount: kasTotal,
-      note: 'Auto Routine Kas Mingguan'
+      note: 'Auto Rutin Kas Mingguan'
     },
     {
       id: 'tx_' + Date.now() + '_2',
@@ -1686,7 +1452,7 @@ async function generateWajibExpenses() {
       category_type: 'pengeluaran_wajib',
       category: 'Parkir Motor',
       amount: parkirTotal,
-      note: `Auto Routine Parkir (${activeDays} hari sekolah)`
+      note: `Parkir Rutin Otomatis (${activeDays} hari sekolah)`
     }
   ];
 
@@ -1694,7 +1460,7 @@ async function generateWajibExpenses() {
 
   if (error) {
     console.error(error);
-    showToast('Gagal memproses auto routine');
+    showToast('Gagal memproses rutinitas otomatis');
   } else {
     showToast('Rutinitas pengeluaran wajib berhasil ditambahkan!');
     closeAutoWajibModal();
@@ -1813,7 +1579,7 @@ function deleteGoal(id) {
   goals = goals.filter(g => g.id !== id);
   saveData();
   renderGoals();
-  showToast('Target impian dihapus');
+  showToast('Target mimpi dihapus');
 }
 
 function openManageCategoryModal() {
@@ -1910,7 +1676,7 @@ function imporDataKeuangan(e) {
         });
       }
 
-      // 2. Sinkronisasi Target/Goals
+      // 2. Sinkronisasi Target/Tujuan
       if (imported.goals && Array.isArray(imported.goals)) {
         imported.goals.forEach(impGoal => {
           if (!goals.some(g => g.title.toLowerCase() === (impGoal.title || '').toLowerCase())) {
@@ -1970,24 +1736,24 @@ function imporDataKeuangan(e) {
           .upsert(formattedTx, { onConflict: 'id' });
 
         if (error) {
-          console.error('Supabase Impor Error Detail:', error);
+          console.error('Detail Kesalahan Impor Supabase:', error);
           showToast(`Gagal impor: ${error.message || 'Konflik data Supabase'}`);
         } else {
-          showToast('Data transaksi & pengaturan berhasil dipulihkan!');
+          showToast('Data transaksi & pengaturan berhasil diimpor!');
         }
       } else {
-        showToast('Pengaturan berhasil dipulihkan (tidak ada data transaksi).');
+        showToast('Pengaturan berhasil diimpor (tidak ada data transaksi).');
       }
 
       populateCategoryDropdown();
       renderGoals();
       await fetchTransactions();
 
-      // Reset file input
+      // Atur ulang input file
       e.target.value = '';
 
     } catch (err) {
-      console.error('JSON Import Error:', err);
+      console.error('Kesalahan Impor JSON:', err);
       showToast('Format JSON tidak valid atau file rusak!');
       e.target.value = '';
     }
@@ -2016,7 +1782,7 @@ function initSpeechRecognition() {
   recognition.onend = () => {
     isListening = false;
     document.getElementById('micIcon').className = 'fa-solid fa-microphone text-lg';
-    document.getElementById('voiceStatus').textContent = 'Klik Mic';
+    document.getElementById('voiceStatus').textContent = 'Klik Mikrofon';
   };
 
   recognition.onresult = (event) => {
@@ -2062,45 +1828,87 @@ function processVoiceCommand(text) {
     }
   } else {
     if (lowerText.includes('juta')) amount = 1000000;
-    else if (lowerText.includes('ribu')) amount = 1000;
+    else if (lowerText.includes('ratus ribu')) amount = 100000;
+    else if (lowerText.includes('lima puluh ribu')) amount = 50000;
+    else if (lowerText.includes('dua puluh ribu')) amount = 20000;
+    else if (lowerText.includes('sepuluh ribu')) amount = 10000;
+    else if (lowerText.includes('lima ribu')) amount = 5000;
+    else if (lowerText.includes('dua ribu')) amount = 2000;
+    else if (lowerText.includes('seribu')) amount = 1000;
   }
 
-  let matchedCategory = categories.find(c => lowerText.includes(c.name.toLowerCase()));
-  let categoryName = matchedCategory ? matchedCategory.name : (type === 'pemasukan' ? 'Uang Saku' : 'Makanan');
+  if (!amount || amount <= 0) {
+    showToast(`Suara: "${text}" (Nominal tidak terdeteksi)`);
+    return;
+  }
 
-  document.getElementById('txCategory').value = categoryName;
-  if (amount > 0) document.getElementById('txAmount').value = amount;
-  document.getElementById('txNote').value = cleanNoteText(text);
+  let matchedCategory = '';
 
-  showToast(`Suara terdeteksi: "${text}"`);
+  if (type === 'pemasukan') {
+    if (lowerText.includes('uang saku')) {
+      const catExist = categories.find(c => c.name.toLowerCase() === 'uang saku' && c.type === 'pemasukan');
+      matchedCategory = catExist ? catExist.name : 'Uang Saku';
+    } else {
+      const catExist = categories.find(c => (c.name.toLowerCase().includes('gaji') || c.name.toLowerCase().includes('bonus')) && c.type === 'pemasukan');
+      matchedCategory = catExist ? catExist.name : 'Lain-lain';
+    }
+  } else {
+    const drinkKeywords = ['sprite', 'fanta', 'coca cola', 'es teh', 'kopi', 'susu', 'air', 'minuman', 'minum', 'jus'];
+    const foodKeywords = ['gorengan', 'nasi', 'roti', 'snack', 'ubi', 'oki', 'makanan', 'makan', 'bakso', 'mie'];
+
+    if (drinkKeywords.some(kw => lowerText.includes(kw))) {
+      const catExist = categories.find(c => c.name.toLowerCase() === 'minuman');
+      matchedCategory = catExist ? catExist.name : 'Minuman';
+    } else if (foodKeywords.some(kw => lowerText.includes(kw))) {
+      const catExist = categories.find(c => c.name.toLowerCase() === 'makanan');
+      matchedCategory = catExist ? catExist.name : 'Makanan';
+    } else {
+      const availableCats = categories.filter(c => c.type !== 'pemasukan');
+      for (let c of availableCats) {
+        if (lowerText.includes(c.name.toLowerCase())) {
+          matchedCategory = c.name;
+          break;
+        }
+      }
+    }
+
+    if (!matchedCategory) {
+      matchedCategory = 'Lain-lain';
+    }
+  }
+
+  let noteText = cleanNoteText(lowerText);
+
+  document.getElementById('txCategory').value = matchedCategory;
+  document.getElementById('txAmount').value = amount;
+  document.getElementById('txNote').value = noteText;
+
+  addTransaction();
+}
+
+function processVoiceText(text) {
+  processVoiceCommand(text);
 }
 
 function formatRupiah(number) {
   return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number);
 }
 
-function formatDate(dateString) {
-  if (!dateString) return '-';
-  const parts = dateString.split('-');
-  if (parts.length !== 3) return dateString;
-  const year = parts[0];
-  const month = parts[1];
-  const day = parts[2];
-  return `${day}/${month}/${year}`;
+function formatDate(dateStr) {
+  if (!dateStr) return '-';
+  const parts = dateStr.split('-');
+  if (parts.length !== 3) return dateStr;
+  return `${parts[2]}/${parts[1]}/${parts[0]}`;
 }
 
 function showToast(msg) {
   const toast = document.getElementById('toast');
   const toastMsg = document.getElementById('toastMsg');
-  if (toast && toastMsg) {
-    toastMsg.textContent = msg;
-    toast.classList.remove('translate-y-20', 'opacity-0');
-    toast.classList.add('translate-y-0', 'opacity-100');
-    setTimeout(() => {
-      toast.classList.remove('translate-y-0', 'opacity-100');
-      toast.classList.add('translate-y-20', 'opacity-0');
-    }, 3000);
-  }
+  toastMsg.textContent = msg;
+  toast.classList.remove('translate-y-20', 'opacity-0');
+  setTimeout(() => {
+    toast.classList.add('translate-y-20', 'opacity-0');
+  }, 3500);
 }
 </script>
 </body>
